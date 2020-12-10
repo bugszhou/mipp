@@ -1,3 +1,6 @@
+/// <reference path="./weapp.d.ts" />
+import "weapp-api-typings";
+
 export default class Mipp<IData> {
   public get componentName(): string;
   data: any;
