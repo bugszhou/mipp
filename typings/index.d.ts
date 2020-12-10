@@ -12,6 +12,6 @@ declare class PageBase<IData extends Record<string, any>> {
   setData(opts: Partial<IData>, callback?: () => any): void;
 }
 
-declare module "mipp" {
-  export = PageBase;
-}
+// declare module "mipp" {
+//   export = PageBase;
+// }
