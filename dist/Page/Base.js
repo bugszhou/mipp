@@ -19,7 +19,7 @@ var Base = /** @class */ (function () {
          * 页面名称，注意唯一性
          */
         get: function () {
-            return "Base";
+            return this.constructor.name;
         },
         enumerable: false,
         configurable: true

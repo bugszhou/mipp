@@ -1,8 +1,10 @@
 /// <reference path="./weapp.d.ts" />
 import "weapp-api-typings";
 
-export default class Mipp<IData> {
-  public get componentName(): string;
+declare class PageBase<IData extends Record<string, any>> {
+  constructor(options?: any);
+
+  get componentName(): string;
   data: any;
   options: any;
   readonly delProperties: string[];
@@ -10,11 +12,6 @@ export default class Mipp<IData> {
   setData(opts: Partial<IData>, callback?: () => any): void;
 }
 
-export class PageBase<IData> {
-  public get componentName(): string;
-  data: any;
-  options: any;
-  readonly delProperties: string[];
-  customerProperties: string[];
-  setData(opts: Partial<IData>, callback?: () => any): void;
+declare module "mipp" {
+  export = PageBase;
 }
