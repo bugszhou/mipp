@@ -36,7 +36,26 @@ import Mipp from "mipp";
 
 是页面渲染的数据类或 interface，即`data`中所包含的数据或者 interface
 
-#### Example
+#### Example1
+
+```javascript
+class Data {
+  username = "";
+}
+
+class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+  data: Data;
+  constructor () {
+    this.setData(new Data());
+  }
+
+  onLoad(): void {
+    console.log("onLoad", this);
+  }
+}
+```
+
+#### Example2
 
 ```javascript
 class Data {
@@ -45,9 +64,6 @@ class Data {
 
 class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
   data = new Data();
-  constructor () {
-    this.setData(new Data());
-  }
 
   onLoad(): void {
     console.log("onLoad", this);
