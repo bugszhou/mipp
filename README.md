@@ -69,6 +69,8 @@ class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
     console.log("onLoad", this);
   }
 }
+
+Page(new Index());
 ```
 
 - 在`onLoad`中初始化：
@@ -87,6 +89,8 @@ class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
     console.log("onLoad", this);
   }
 }
+
+Page(new Index());
 ```
 
 #### Example1
@@ -110,6 +114,8 @@ class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
     console.log("onLoad", this);
   }
 }
+
+Page(new Index());
 ```
 
 #### Example2
@@ -141,6 +147,8 @@ class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
     console.log("onLoad", this);
   }
 }
+
+Page(new Index());
 ```
 
 ### `IMippWe.IPageLifetime`
@@ -180,4 +188,6 @@ class Index extends PageBase<IData> implements IMippWe.IPageLifetime {
     console.log("onLoad", this);
   }
 }
+
+Page(new Index());
 ```
