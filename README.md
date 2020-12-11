@@ -36,6 +36,59 @@ import Mipp from "mipp";
 
 是页面渲染的数据类或 interface，即`data`中所包含的数据或者 interface
 
+**特别注意 `constructor`构造方法中不能使用小程序内置的属性和方法；比如：`this.setData(opts?)`和`this.options`;因为此时还没有注入到 Page 函数中，并没有小程序内置的对象**
+
+**(除非必须)尽量不要在 `constructor`里面执行初始化的工作，因为加载小程序后，会执行所有页面前置的 js 代码(Page()之前执行的代码)，导致小程序渲染变慢。可以在`onLoad`生命周期函数中执行初始化的工作，`onLoad`只在打开该页面时执行**
+
+#### `data`初始化
+
+`data`初始化有两种方式：
+
+1. 在`constructor`中初始化，使用`this.data = new Data()`对`data`进行初始化；建议使用这方式
+2. 在`onLoad`中初始化，在`onLoad`中初始化需要执行`this.setData()`
+
+##### `data`初始化示例
+
+- 建议使用在`constructor`中初始化：
+
+```javascript
+class Data {
+  username = "";
+}
+
+
+class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+  data: Data;
+
+  constructor () {
+    super();
+    this.data = new Data();
+  }
+
+  onLoad(): void {
+    console.log("onLoad", this);
+  }
+}
+```
+
+- 在`onLoad`中初始化：
+
+```javascript
+class Data {
+  username = "";
+}
+
+
+class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+  data: Data;
+
+  onLoad(): void {
+    this.setData(new Data());
+    console.log("onLoad", this);
+  }
+}
+```
+
 #### Example1
 
 ```javascript
@@ -43,10 +96,14 @@ class Data {
   username = "";
 }
 
+
 class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
   data: Data;
+
   constructor () {
-    this.setData(new Data());
+    super();
+    this.data = new Data();
+    //不能在constructor中使用 this.setData({}); 因为还没有注入到Page函数中，并没有小程序内置的对象
   }
 
   onLoad(): void {
@@ -62,8 +119,23 @@ class Data {
   username = "";
 }
 
+// 不推荐的方式
 class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
   data = new Data();
+
+  onLoad(): void {
+    console.log("onLoad", this);
+  }
+}
+
+// 推荐的方式
+class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+  data: Data;
+
+  constructor() {
+    super();
+    this.data = new Data();
+  }
 
   onLoad(): void {
     console.log("onLoad", this);
