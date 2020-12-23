@@ -1,4 +1,4 @@
-/// <reference path="./weapp.d.ts" />
+/// <reference path="./weapp/index.d.ts" />
 import "weapp-api-typings";
 
 declare class PageBase<IData extends Record<string, any>> {
@@ -11,7 +11,3 @@ declare class PageBase<IData extends Record<string, any>> {
   customerProperties: string[];
   setData(opts: Partial<IData>, callback?: () => any): void;
 }
-
-// declare module "mipp" {
-//   export = PageBase;
-// }
