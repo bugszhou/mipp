@@ -10,7 +10,7 @@ export default class Base<IData> {
 
   options = {};
 
-  private delProperties = ["options", "setData", "nextTick"];
+  private delProperties = ["constructor", "options", "setData", "nextTick"];
 
   // 子类自定义配置序列化需要删除的属性名
   customerProperties: string[] = [];
