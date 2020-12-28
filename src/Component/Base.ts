@@ -1,3 +1,7 @@
+interface IFn {
+  (): void;
+}
+
 export default class Base<IData> {
   /**
    * 组件名称，注意唯一性
@@ -117,13 +121,14 @@ export default class Base<IData> {
    * 执行关键帧动画，详见[动画](https://developers.weixin.qq.com/miniprogram/dev/framework/view/animation.html)
    *
    * 最低基础库版本：[`2.9.0`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   * scrollTimeline?: WechatMiniprogram.Component.ScrollTimelineOption,
+   * callback?: () => void,
    **/
   animate(
     selector: string,
     keyFrames: WechatMiniprogram.Component.KeyFrame[] | WechatMiniprogram.Component.ScrollTimelineKeyframe[],
     duration?: number,
-    scrollTimeline?: WechatMiniprogram.Component.ScrollTimelineOption
-    callback?: () => void,
+    ...opts,
   ): void {}
 
   /**
@@ -133,7 +138,7 @@ export default class Base<IData> {
    **/
   clearAnimation(
     selector: string,
-    options?: WechatMiniprogram.Component.ClearAnimationOptions | () => void,
+    options?: WechatMiniprogram.Component.ClearAnimationOptions | IFn,
     callback?: () => void
   ): void {}
 
