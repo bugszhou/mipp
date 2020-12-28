@@ -90,8 +90,15 @@ var Base = /** @class */ (function () {
      * 执行关键帧动画，详见[动画](https://developers.weixin.qq.com/miniprogram/dev/framework/view/animation.html)
      *
      * 最低基础库版本：[`2.9.0`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+     * scrollTimeline?: WechatMiniprogram.Component.ScrollTimelineOption,
+     * callback?: () => void,
      **/
-    Base.prototype.animate = function (selector, keyFrames, duration, scrollTimeline, callback) { };
+    Base.prototype.animate = function (selector, keyFrames, duration) {
+        var opts = [];
+        for (var _i = 3; _i < arguments.length; _i++) {
+            opts[_i - 3] = arguments[_i];
+        }
+    };
     /**
      * 清除关键帧动画，详见[动画](https://developers.weixin.qq.com/miniprogram/dev/framework/view/animation.html)
      *

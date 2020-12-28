@@ -30,4 +30,6 @@ declare namespace IMippWeComponent {
    * Component中properties类型声明
    */
   interface IProperty extends WechatMiniprogram.Component.PropertyOption {}
+
+  interface ITriggerEventOption extends WechatMiniprogram.Component.TriggerEventOption {}
 }

@@ -1,3 +1,5 @@
+import "weapp-api-typings";
+
 interface IFn {
   (): void;
 }
@@ -42,13 +44,13 @@ export default class Base<IData> {
   }
 
   /** 组件的文件路径 */
-  is: string;
+  is = "";
 
   /** 节点id */
-  id: string;
+  id = "";
 
   /** 节点dataset */
-  dataset: Record<string, string>;
+  dataset: Record<string, string> = {};
 
   setData(opts?: Partial<IData>, callback?: () => any): void {
     if (opts) {
@@ -67,34 +69,46 @@ export default class Base<IData> {
   ): void {}
 
   /** 创建一个 SelectorQuery 对象，选择器选取范围为这个组件实例内 */
-  createSelectorQuery(): WechatMiniprogram.SelectorQuery {}
+  createSelectorQuery(): Partial<WechatMiniprogram.SelectorQuery> {
+    return {};
+  }
 
   /** 创建一个 IntersectionObserver 对象，选择器选取范围为这个组件实例内 */
   createIntersectionObserver(
     options: WechatMiniprogram.CreateIntersectionObserverOption
-  ): WechatMiniprogram.IntersectionObserver {}
+  ): Partial<WechatMiniprogram.IntersectionObserver> {
+    return {};
+  }
 
   /** 使用选择器选择组件实例节点，返回匹配到的第一个组件实例对象（会被 `wx://component-export` 影响） */
   selectComponent(
     selector: string
-  ): WechatMiniprogram.Component.TrivialInstance {}
+  ): Partial<WechatMiniprogram.Component.TrivialInstance> {
+    return {};
+  }
 
   /** 使用选择器选择组件实例节点，返回匹配到的全部组件实例对象组成的数组 */
   selectAllComponents(
     selector: string
-  ): WechatMiniprogram.Component.TrivialInstance[] {}
+  ): Partial<WechatMiniprogram.Component.TrivialInstance>[] {
+    return [];
+  }
 
   /**
    * 选取当前组件节点所在的组件实例（即组件的引用者），返回它的组件实例对象（会被 `wx://component-export` 影响）
    *
    * 最低基础库版本：[`2.8.2`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    **/
-  selectOwnerComponent(): WechatMiniprogram.Component.TrivialInstance {}
+  selectOwnerComponent(): Partial<WechatMiniprogram.Component.TrivialInstance> {
+    return {};
+  }
 
   /** 获取这个关系所对应的所有关联节点，参见 组件间关系 */
   getRelationNodes(
     relationKey: string
-  ): WechatMiniprogram.Component.TrivialInstance[] {}
+  ): Partial<WechatMiniprogram.Component.TrivialInstance>[] {
+    return [];
+  }
 
   /**
    * 立刻执行 callback ，其中的多个 setData 之间不会触发界面绘制（只有某些特殊场景中需要，如用于在不同组件同时 setData 时进行界面绘制同步）
@@ -108,14 +122,18 @@ export default class Base<IData> {
    *
    * 最低基础库版本：[`2.6.2`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    **/
-  getTabBar(): WechatMiniprogram.Component.TrivialInstance {}
+  getTabBar(): Partial<WechatMiniprogram.Component.TrivialInstance> {
+    return {};
+  }
 
   /**
    * 返回页面标识符（一个字符串），可以用来判断几个自定义组件实例是不是在同一个页面内
    *
    * 最低基础库版本：[`2.7.1`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    **/
-  getPageId(): string {}
+  getPageId(): string {
+    return "";
+  }
 
   /**
    * 执行关键帧动画，详见[动画](https://developers.weixin.qq.com/miniprogram/dev/framework/view/animation.html)
@@ -126,9 +144,11 @@ export default class Base<IData> {
    **/
   animate(
     selector: string,
-    keyFrames: WechatMiniprogram.Component.KeyFrame[] | WechatMiniprogram.Component.ScrollTimelineKeyframe[],
+    keyFrames:
+      | WechatMiniprogram.Component.KeyFrame[]
+      | WechatMiniprogram.Component.ScrollTimelineKeyframe[],
     duration?: number,
-    ...opts,
+    ...opts
   ): void {}
 
   /**
@@ -142,7 +162,9 @@ export default class Base<IData> {
     callback?: () => void
   ): void {}
 
-  getOpenerEventChannel(): WechatMiniprogram.EventChannel {}
+  getOpenerEventChannel(): Partial<WechatMiniprogram.EventChannel> {
+    return {};
+  }
 
   static serialize<T extends Base<any>>(obj: T): any {
     const start = Date.now();
