@@ -1,9 +1,3 @@
-import "weapp-api-typings";
-
-interface IFn {
-  (): void;
-}
-
 export default class Base<IData> {
   /**
    * 组件名称，注意唯一性
