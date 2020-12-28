@@ -5,7 +5,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-import "weapp-api-typings";
 var Base = /** @class */ (function () {
     function Base() {
         this.data = {};
