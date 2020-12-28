@@ -61,7 +61,9 @@ declare namespace IMippWeComponent {
    *
    * onResize(options: IMippWePage.IResizeOption): void
    */
-  type IPageLifetime<This, IMethods> = Partial<IPageLifetimes<This & IMethodsOption<This, IMethods>>>
+  // type IPageLifetime<This, IMethods> = Partial<IPageLifetimes<This & IMethodsOption<This, IMethods>>>
+
+  type IPageLifetime<This, IMethods> = Partial<IPageLifetimes<This & IMethods>>
 
   /**
    * Component中options类型声明
@@ -78,7 +80,7 @@ declare namespace IMippWeComponent {
    */
   type Keys<IMethods> = keyof IMethods;
 
-  type IMethodsOption<This, IMethods> = { [K in Keys<IMethods>]: (this: (IMethods extends any | null | undefined ? This : This & IMethods), ...args: any[]) => any;};
+  type IMethodsOption<This, IMethods> = { [K in Keys<IMethods>]: (this: (IMethods extends null | undefined ? This : This & IMethods), ...args: any[]) => any;};
 
   interface ITriggerEventOption
     extends WechatMiniprogram.Component.TriggerEventOption {}
