@@ -9,7 +9,7 @@ var Base = /** @class */ (function () {
     function Base() {
         this.data = {};
         this.options = {};
-        this.delProperties = ["options", "setData", "nextTick"];
+        this.delProperties = ["constructor", "options", "setData", "nextTick"];
         // 子类自定义配置序列化需要删除的属性名
         this.customerProperties = [];
         return Base.serialize(this);

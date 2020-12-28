@@ -27,15 +27,15 @@ declare namespace IMippWePage {
    * 
    * onReachBottom(): void
    * 
-   * onShareAppMessage(options: IShareAppMessageOption): ICustomShareContent | void
+   * onShareAppMessage(options: IMippWePage.IShareAppMessageOption): IMippWePage.ICustomShareContent | void
    * 
-   * onPageScroll(options: IPageScrollOption): void
+   * onPageScroll(options: IMippWePage.IPageScrollOption): void
    * 
-   * onTabItemTap(options: ITabItemTapOption): void
+   * onTabItemTap(options: IMippWePage.ITabItemTapOption): void
    * 
-   * onResize(options: IResizeOption): void
+   * onResize(options: IMippWePage.IResizeOption): void
    * 
-   * onAddToFavorites(options: IAddToFavoritesOption): IAddToFavoritesContent
+   * onAddToFavorites(options: IMippWePage.IAddToFavoritesOption): IMippWePage.IAddToFavoritesContent
    */
   interface ILifetime extends Partial<WechatMiniprogram.Page.ILifetime> {}
 
