@@ -14,4 +14,14 @@ declare namespace IMippWeEvent {
   interface ITap extends WechatMiniprogram.TapEvent {}
 
   interface IInput extends WechatMiniprogram.InputEvent {}
+
+  /**
+   * change事件监听函数形参
+   */
+  interface IChange extends IEvent {
+    detail: {
+      value: string | number;
+    };
+    type: "change";
+  }
 }
