@@ -24,4 +24,26 @@ declare namespace IMippWeEvent {
     };
     type: "change";
   }
+
+  /**
+   * 获取用户信息监听函数形参
+   */
+  interface IUserInfo extends IEvent {
+    detail: WechatMiniprogram.GetUserInfoSuccessCallbackResult;
+    type: "getUserInfo";
+  }
+
+  /**
+   * 获取用户手机号监听函数形参
+   */
+  interface IGetPhoneNumber extends IEvent {
+    detail: {
+      /** 包括敏感数据在内的完整用户信息的加密数据，详见 [用户数据的签名验证和加解密]((signature#加密数据解密算法)) */
+      encryptedData: string;
+      /** 加密算法的初始向量，详见 [用户数据的签名验证和加解密]((signature#加密数据解密算法)) */
+      iv: string;
+      errMsg: string;
+    };
+    type: "getphonenumber";
+  }
 }
