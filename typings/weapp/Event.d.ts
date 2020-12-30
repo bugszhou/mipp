@@ -20,7 +20,7 @@ declare namespace IMippWeEvent {
    */
   interface IChange extends IEvent {
     detail: {
-      value: string | number;
+      value: string;
     };
     type: "change";
   }
