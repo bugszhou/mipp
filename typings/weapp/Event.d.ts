@@ -9,7 +9,9 @@
  *
  */
 declare namespace IMippWeEvent {
-  interface IEvent extends WechatMiniprogram.Event {}
+  interface IEvent extends WechatMiniprogram.Event {
+    detail: any;
+  }
 
   interface ITap extends WechatMiniprogram.TapEvent {}
 
