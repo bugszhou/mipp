@@ -26,7 +26,11 @@ import Mipp from "mipp";
 
 ## Interface
 
-- IMippWe.IPageLifetime
+- IMippWeApp
+- IMippWePage
+- IMippWeComponent
+- IMippWeEvent
+- IMippWeCommon
 
 ### `PageBase`
 
@@ -57,7 +61,7 @@ class Data {
 }
 
 
-class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+class Index extends PageBase<Data> implements IMippWePage.ILifetime {
   data: Data;
 
   constructor () {
@@ -81,7 +85,7 @@ class Data {
 }
 
 
-class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+class Index extends PageBase<Data> implements IMippWePage.ILifetime {
   data: Data;
 
   onLoad(): void {
@@ -101,7 +105,7 @@ class Data {
 }
 
 
-class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+class Index extends PageBase<Data> implements IMippWePage.ILifetime {
   data: Data;
 
   constructor () {
@@ -126,7 +130,7 @@ class Data {
 }
 
 // 不推荐的方式
-class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+class Index extends PageBase<Data> implements IMippWePage.ILifetime {
   data = new Data();
 
   onLoad(): void {
@@ -135,7 +139,7 @@ class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
 }
 
 // 推荐的方式
-class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
+class Index extends PageBase<Data> implements IMippWePage.ILifetime {
   data: Data;
 
   constructor() {
@@ -151,7 +155,7 @@ class Index extends PageBase<Data> implements IMippWe.IPageLifetime {
 Page(new Index());
 ```
 
-### `IMippWe.IPageLifetime`
+### `IMippWePage.ILifetime`
 
 小程序生命周期函数的 interface
 
@@ -179,7 +183,7 @@ interface IData {
   username: string;
 }
 
-class Index extends PageBase<IData> implements IMippWe.IPageLifetime {
+class Index extends PageBase<IData> implements IMippWePage.ILifetime {
   data: IData = {
     username: "",
   };
