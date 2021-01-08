@@ -1,8 +1,14 @@
-import Base from "../dist/Page/Base";
-import Component from "../dist/Component/Base";
-export var PageBase = Base;
-export var ComponentBase = Component;
-export default {
-    PageBase: Base,
-    ComponentBase: Component,
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComponentBase = exports.PageBase = void 0;
+var Base_1 = __importDefault(require("../dist/Page/Base"));
+var Base_2 = __importDefault(require("../dist/Component/Base"));
+exports.PageBase = Base_1.default;
+exports.ComponentBase = Base_2.default;
+exports.default = {
+    PageBase: Base_1.default,
+    ComponentBase: Base_2.default,
 };
