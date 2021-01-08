@@ -9,13 +9,14 @@
  *
  */
 declare namespace IMippWeEvent {
-  interface IEvent extends WechatMiniprogram.Event {
-    detail: any;
+  interface IEvent extends WechatMiniprogram.BaseEvent {
+    detail?: any;
+    [key: string]: any;
   }
 
-  interface ITap extends WechatMiniprogram.TapEvent {}
+  interface ITap extends WechatMiniprogram.TouchEvent {}
 
-  interface IInput extends WechatMiniprogram.InputEvent {}
+  interface IInput extends WechatMiniprogram.Input {}
 
   /**
    * change事件监听函数形参
