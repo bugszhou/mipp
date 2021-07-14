@@ -2,6 +2,8 @@
 import "weapp-api-typings";
 import { Base } from "./Base/Base";
 
+declare class MiniBase<IData extends Record<string, any>> extends Base<IData> {}
+
 declare class PageBase<IData extends Record<string, any>> extends Base<IData> {
   constructor(options?: any);
   get componentName(): string;
@@ -15,15 +17,6 @@ declare class PageBase<IData extends Record<string, any>> extends Base<IData> {
    * 渲染层可以通过 `WXML` 对数据进行绑定。
    */
   data: IData;
-
-  /** 页面的文件路径 */
-  is: string;
-
-  /** 到当前页面的路径 */
-  route: string;
-
-  /** 打开当前页面路径中的参数 */
-  options: Record<string, string | undefined>;
 
   /** 生命周期回调—监听页面加载
    *

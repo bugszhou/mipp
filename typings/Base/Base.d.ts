@@ -1,6 +1,15 @@
 type DataOption = Record<string, any>;
 
 export declare class Base<IData extends DataOption> {
+  /** 页面的文件路径 */
+  is: string;
+
+  /** 到当前页面的路径 */
+  route: string;
+
+  /** 打开当前页面路径中的参数 */
+  options: Record<string, string | undefined>;
+
   /** `setData` 函数用于将数据从逻辑层发送到视图层
    *（异步），同时改变对应的 `this.data` 的值（同步）。
    *
