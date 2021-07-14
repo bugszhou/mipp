@@ -2,7 +2,7 @@
 import "weapp-api-typings";
 import { Base } from "./Base/Base";
 
-declare class MiniBase<IData extends Record<string, any>> extends Base<IData> {}
+declare class EmptyBase<IData extends Record<string, any>> extends Base<IData> {}
 
 declare class PageBase<IData extends Record<string, any>> extends Base<IData> {
   constructor(options?: any);
