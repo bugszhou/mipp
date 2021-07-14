@@ -4,7 +4,14 @@ import Component from "../dist/Component/Base";
 export const PageBase = Base;
 export const ComponentBase = Component;
 
-class MiniBase {}
+export class MiniBase {
+  /**
+   * 页面名称，注意唯一性
+   */
+  get componentName(): string {
+    return this.constructor.name;
+  }
+}
 
 export default {
   MiniBase,
