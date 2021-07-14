@@ -1,20 +1,14 @@
 import Base from "../dist/Page/Base";
+import MiniBase from "./Page/MiniBase";
 import Component from "../dist/Component/Base";
 
 export const PageBase = Base;
 export const ComponentBase = Component;
 
-export class MiniBase {
-  /**
-   * 页面名称，注意唯一性
-   */
-  get componentName(): string {
-    return this.constructor.name;
-  }
-}
+export const EmptyBase = MiniBase;
 
 export default {
-  MiniBase,
+  EmptyBase: MiniBase,
   PageBase: Base,
   ComponentBase: Component,
 };
