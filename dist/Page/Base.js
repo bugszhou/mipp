@@ -6,7 +6,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var rfdc_1 = __importDefault(require("rfdc"));
 var Base = /** @class */ (function () {
     function Base() {
         this.data = {};
@@ -24,22 +28,11 @@ var Base = /** @class */ (function () {
         configurable: true
     });
     Base.serialize = function (obj) {
-        var start = Date.now();
-        var that = Object.create(null);
-        var delProperties = __spreadArrays(obj.delProperties);
-        var allProperties = __spreadArrays(Object.keys(obj), Object.keys(Object.getPrototypeOf(obj)));
-        allProperties.forEach(function (key) {
-            if (delProperties.includes(key)) {
-                return;
-            }
-            that[key] = obj[key];
+        var that = rfdc_1.default({ proto: true })(obj);
+        var delProperties = __spreadArrays((Array.isArray(obj.delProperties) ? obj.delProperties : []));
+        delProperties.forEach(function (item) {
+            delete that[item];
         });
-        try {
-            console.log(obj.componentName, " serialize time: ", Date.now() - start);
-        }
-        catch (e) {
-            console.log(e);
-        }
         return that;
     };
     return Base;

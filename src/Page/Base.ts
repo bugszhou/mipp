@@ -1,3 +1,5 @@
+import clone from "rfdc";
+
 export default class Base<IData> {
   /**
    * 页面名称，注意唯一性
@@ -15,27 +17,15 @@ export default class Base<IData> {
   private delProperties = ["constructor"];
 
   static serialize<T extends Base<any>>(obj: T): any {
-    const start = Date.now();
-    const that = Object.create(null);
+    const that = clone({ proto: true })(obj);
 
-    const delProperties = [...obj.delProperties];
-
-    const allProperties = [
-      ...Object.keys(obj),
-      ...Object.keys(Object.getPrototypeOf(obj)),
+    const delProperties = [
+      ...(Array.isArray(obj.delProperties) ? obj.delProperties : []),
     ];
-    allProperties.forEach((key) => {
-      if (delProperties.includes(key)) {
-        return;
-      }
-      that[key] = obj[key];
-    });
 
-    try {
-      console.log(obj.componentName, " serialize time: ", Date.now() - start);
-    } catch (e) {
-      console.log(e);
-    }
+    delProperties.forEach((item) => {
+      delete that[item];
+    });
 
     return that;
   }
