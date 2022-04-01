@@ -137,4 +137,14 @@ export declare class Base<IData extends DataOption> {
   ): void;
 
   getOpenerEventChannel(): WechatMiniprogram.EventChannel;
+  /**
+   * 获取更新性能统计信息，详见 [获取更新性能统计信息]((custom-component/update-perf-stat))
+   *
+   *
+   * 最低基础库版本：[`2.12.0`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  setUpdatePerformanceListener<WithDataPath extends boolean = false>(
+      options: WechatMiniprogram.Component.SetUpdatePerformanceListenerOption<WithDataPath>,
+      callback?: WechatMiniprogram.Component.UpdatePerformanceListener<WithDataPath>
+  ): void
 }
