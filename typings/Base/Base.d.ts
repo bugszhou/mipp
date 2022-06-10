@@ -149,9 +149,12 @@ export declare class Base<IData extends DataOption> {
   ): void;
 }
 
-export interface IMiniComponentOptions extends WechatMiniprogram.Component.ComponentOptions {}
-export interface IMiniComponentRelationOption extends WechatMiniprogram.Component.RelationOption {}
-export interface IMiniComponentDefinitionFilter extends WechatMiniprogram.Component.DefinitionFilter {}
+export interface IMiniComponentOptions
+  extends WechatMiniprogram.Component.ComponentOptions {}
+export interface IMiniComponentRelationOption
+  extends WechatMiniprogram.Component.RelationOption {}
+export interface IMiniComponentDefinitionFilter
+  extends WechatMiniprogram.Component.DefinitionFilter {}
 
 export declare class MiniComponent<IData extends DataOption> {
   /** 页面的文件路径 */
@@ -173,7 +176,7 @@ export declare class MiniComponent<IData extends DataOption> {
   };
   /** 组件接受的外部样式类，参见 [外部样式类](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html) */
   externalClasses?: string[];
-  
+
   /** 一些选项（文档中介绍相关特性时会涉及具体的选项设置，这里暂不列举） */
   options: IMiniComponentOptions;
 
@@ -323,6 +326,59 @@ export declare class MiniComponent<IData extends DataOption> {
     options: WechatMiniprogram.Component.SetUpdatePerformanceListenerOption<WithDataPath>,
     callback?: WechatMiniprogram.Component.UpdatePerformanceListener<WithDataPath>
   ): void;
+
+  /** 页面生命周期回调—监听页面显示
+   *
+   * 页面显示/切入前台时触发。
+   */
+  show(): void;
+  /** 页面生命周期回调—监听页面隐藏
+   *
+   * 页面隐藏/切入后台时触发。 如 `navigateTo` 或底部 `tab` 切换到其他页面，小程序切入后台等。
+   */
+  hide(): void;
+  /** 页面生命周期回调—监听页面尺寸变化
+   *
+   * 所在页面尺寸变化时执行
+   */
+  resize(size: WechatMiniprogram.Page.IResizeOption): void;
+
+  /**
+   * 在组件实例刚刚被创建时执行，注意此时不能调用 `setData`
+   *
+   * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  created(): void;
+  /**
+   * 在组件实例进入页面节点树时执行
+   *
+   * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  attached(): void;
+  /**
+   * 在组件在视图层布局完成后执行
+   *
+   * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  ready(): void;
+  /**
+   * 在组件实例被移动到节点树另一个位置时执行
+   *
+   * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  moved(): void;
+  /**
+   * 在组件实例被从页面节点树移除时执行
+   *
+   * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  detached(): void;
+  /**
+   * 每当组件方法抛出错误时执行
+   *
+   * 最低基础库版本：[`2.4.1`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  error(err: Error): void;
 
   static Component(componentIns: MiniComponent<unknown>): void;
 }
