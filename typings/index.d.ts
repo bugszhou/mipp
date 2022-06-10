@@ -1,10 +1,20 @@
 /// <reference path="./weapp/index.d.ts" />
 import "weapp-api-typings";
-import { Base } from "./Base/Base";
+import {
+  Base,
+  MiniComponent,
+  method,
+  lifetimes,
+  observers,
+  pageLifetime,
+  IComponentData,
+} from "./Base/Base";
 
-declare class EmptyBase<IData extends Record<string, any>> extends Base<IData> {}
+export declare class EmptyBase<
+  IData extends Record<string, any>
+> extends Base<IData> {}
 
-declare class PageBase<IData extends Record<string, any>> extends Base<IData> {
+export class PageBase<IData extends Record<string, any>> extends Base<IData> {
   constructor(options?: any);
   get componentName(): string;
 
@@ -123,31 +133,11 @@ declare class PageBase<IData extends Record<string, any>> extends Base<IData> {
   ): IMippWePage.IAddToFavoritesContent;
 }
 
-declare class ComponentBase<
-  IData extends Record<string, any>
-> extends Base<IData> {
-  constructor(options?: any);
-
-  /**
-   * 组件名称，注意唯一性
-   */
-  get componentName(): string;
-
-  data: IData;
-
-  /**
-   * 子类自定义配置序列化需要删除的属性名
-   */
-  customerProperties: string[];
-
-  /**
-   * 组件的文件路径
-   */
-  is: string;
-
-  /** 节点id */
-  id: string;
-
-  /** 节点dataset */
-  dataset: Record<string, string>;
-}
+export {
+  MiniComponent,
+  method,
+  lifetimes,
+  observers,
+  pageLifetime,
+  IComponentData,
+};
