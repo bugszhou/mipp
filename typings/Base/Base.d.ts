@@ -149,10 +149,9 @@ export declare class Base<IData extends DataOption> {
   ): void;
 }
 
-export type IMiniComponentOptions = WechatMiniprogram.Component.ComponentOptions;
-export type IMiniComponentBehaviors = WechatMiniprogram.Behavior.BehaviorIdentifier[];
-export type IMiniComponentRelationOption = WechatMiniprogram.Component.RelationOption;
-export type IMiniComponentDefinitionFilter = WechatMiniprogram.Component.DefinitionFilter;
+export interface IMiniComponentOptions extends WechatMiniprogram.Component.ComponentOptions {}
+export interface IMiniComponentRelationOption extends WechatMiniprogram.Component.RelationOption {}
+export interface IMiniComponentDefinitionFilter extends WechatMiniprogram.Component.DefinitionFilter {}
 
 export declare class MiniComponent<IData extends DataOption> {
   /** 页面的文件路径 */
@@ -161,7 +160,7 @@ export declare class MiniComponent<IData extends DataOption> {
   id: string;
 
   /** 类似于mixins和traits的组件间代码复用机制，参见 [behaviors](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/behaviors.html) */
-  behaviors: IMiniComponentBehaviors;
+  behaviors: string[];
   /**
    * 组件数据字段监听器，用于监听 properties 和 data 的变化，参见 [数据监听器](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/observer.html)
    *
