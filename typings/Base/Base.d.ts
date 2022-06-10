@@ -164,12 +164,6 @@ export declare class MiniComponent<IData extends DataOption> {
 
   /** 类似于mixins和traits的组件间代码复用机制，参见 [behaviors](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/behaviors.html) */
   behaviors: string[];
-  /**
-   * 组件数据字段监听器，用于监听 properties 和 data 的变化，参见 [数据监听器](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/observer.html)
-   *
-   * 最低基础库版本：[`2.6.1`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
-   */
-  observers: Record<string, (...args: any[]) => any>;
   /** 组件间关系定义，参见 [组件间关系](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html) */
   relations: {
     [componentName: string]: IMiniComponentRelationOption;
@@ -389,7 +383,7 @@ export function method(
   descriptor: PropertyDescriptor
 ): void;
 
-export function observers(
+export function observer(
   UIInterface: any,
   methodName: string,
   descriptor: PropertyDescriptor

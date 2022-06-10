@@ -64,7 +64,7 @@ export function method(
   UIInterface.methods[methodName] = descriptor.value;
 }
 
-export function observers(
+export function observer(
   UIInterface,
   methodName,
   descriptor: PropertyDescriptor

@@ -10,7 +10,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.lifetimes = exports.pageLifetime = exports.observers = exports.method = exports.MiniComponent = void 0;
+exports.lifetimes = exports.pageLifetime = exports.observer = exports.method = exports.MiniComponent = void 0;
 var rfdc_1 = __importDefault(require("rfdc"));
 var Base = /** @class */ (function () {
     function Base() {
@@ -56,13 +56,13 @@ function method(UIInterface, methodName, descriptor) {
     UIInterface.methods[methodName] = descriptor.value;
 }
 exports.method = method;
-function observers(UIInterface, methodName, descriptor) {
+function observer(UIInterface, methodName, descriptor) {
     if (!UIInterface.observers) {
         UIInterface.observers = Object.create(null);
     }
     UIInterface.observers[methodName] = descriptor.value;
 }
-exports.observers = observers;
+exports.observer = observer;
 function pageLifetime(UIInterface, methodName, descriptor) {
     if (!UIInterface.pageLifetimes) {
         UIInterface.pageLifetimes = Object.create(null);

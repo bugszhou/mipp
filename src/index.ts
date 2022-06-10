@@ -3,7 +3,7 @@ import MiniBase from "./Page/MiniBase";
 import {
   MiniComponent,
   method,
-  observers,
+  observer,
   pageLifetime,
   lifetimes,
 } from "./Component/Base";
@@ -12,13 +12,13 @@ export const PageBase = Base;
 
 export const EmptyBase = MiniBase;
 
-export { observers, pageLifetime, lifetimes, method, MiniComponent };
+export { observer, pageLifetime, lifetimes, method, MiniComponent };
 
 export default {
   EmptyBase: MiniBase,
   PageBase: Base,
   MiniComponent,
-  observers,
+  observer,
   pageLifetime,
   lifetimes,
   method,
