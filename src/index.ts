@@ -1,18 +1,18 @@
 import Base from "../dist/Page/Base";
 import MiniBase from "./Page/MiniBase";
-import Component, {
+import {
+  MiniComponent,
   method,
   observers,
   pageLifetime,
   lifetimes,
-} from "../dist/Component/Base";
+} from "./Component/Base";
 
 export const PageBase = Base;
-export const MiniComponent = Component;
 
 export const EmptyBase = MiniBase;
 
-export { observers, pageLifetime, lifetimes, method };
+export { observers, pageLifetime, lifetimes, method, MiniComponent };
 
 export default {
   EmptyBase: MiniBase,

@@ -8,6 +8,10 @@ import {
   observers,
   pageLifetime,
   IComponentData,
+  IMiniComponentBehaviors,
+  IMiniComponentDefinitionFilter,
+  IMiniComponentOptions,
+  IMiniComponentRelationOption,
 } from "./Base/Base";
 
 export declare class EmptyBase<
@@ -140,4 +144,8 @@ export {
   observers,
   pageLifetime,
   IComponentData,
+  IMiniComponentBehaviors,
+  IMiniComponentDefinitionFilter,
+  IMiniComponentOptions,
+  IMiniComponentRelationOption,
 };

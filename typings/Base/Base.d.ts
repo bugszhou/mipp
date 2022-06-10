@@ -149,10 +149,10 @@ export declare class Base<IData extends DataOption> {
   ): void;
 }
 
-type IMiniComponentOptions = WechatMiniprogram.Component.ComponentOptions;
-type IMiniComponentBehaviors = WechatMiniprogram.Behavior.BehaviorIdentifier[];
-type IMiniComponentRelationOption = WechatMiniprogram.Component.RelationOption;
-type IMiniComponentDefinitionFilter = WechatMiniprogram.Component.DefinitionFilter;
+export type IMiniComponentOptions = WechatMiniprogram.Component.ComponentOptions;
+export type IMiniComponentBehaviors = WechatMiniprogram.Behavior.BehaviorIdentifier[];
+export type IMiniComponentRelationOption = WechatMiniprogram.Component.RelationOption;
+export type IMiniComponentDefinitionFilter = WechatMiniprogram.Component.DefinitionFilter;
 
 export declare class MiniComponent<IData extends DataOption> {
   /** 页面的文件路径 */
