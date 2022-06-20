@@ -30,10 +30,6 @@ export class MiniComponent<IData = IComponentData<any>> {
 
   private delProperties = ["constructor"];
 
-  constructor() {
-    return MiniComponent.serialize(this);
-  }
-
   static serialize<T extends MiniComponent<any>>(obj: T): any {
     const that = clone({ proto: true })(obj);
 
@@ -46,12 +42,17 @@ export class MiniComponent<IData = IComponentData<any>> {
     });
 
     try {
+      if (typeof (that as any)?.props === "object") {
+        (that as any).properties = (that as any)?.props;
+        delete (that as any)?.props;
+      }
+
       Object.keys((that as any)?.properties || {})
         .filter((property) =>
           Array.isArray((that as any)?.properties[property])
         )
         .forEach((property) => {
-          (that as any).properties = {
+          (that as any).properties[property] = {
             type: Array,
             value: (that as any)?.properties[property],
           };
@@ -64,7 +65,7 @@ export class MiniComponent<IData = IComponentData<any>> {
   }
 
   static Component(componentIns: MiniComponent) {
-    Component(componentIns);
+    Component(MiniComponent.serialize(componentIns));
   }
 }
 
