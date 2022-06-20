@@ -36,11 +36,26 @@ var MiniComponent = /** @class */ (function () {
         return MiniComponent.serialize(this);
     }
     MiniComponent.serialize = function (obj) {
+        var _a;
         var that = rfdc_1.default({ proto: true })(obj);
         var delProperties = __spreadArrays((Array.isArray(obj.delProperties) ? obj.delProperties : []));
         delProperties.forEach(function (item) {
             delete that[item];
         });
+        try {
+            Object.keys(((_a = that) === null || _a === void 0 ? void 0 : _a.properties) || {})
+                .filter(function (property) { var _a; return Array.isArray((_a = that) === null || _a === void 0 ? void 0 : _a.properties[property]); })
+                .forEach(function (property) {
+                var _a;
+                that.properties = {
+                    type: Array,
+                    value: (_a = that) === null || _a === void 0 ? void 0 : _a.properties[property],
+                };
+            });
+        }
+        catch (e) {
+            console.error(e);
+        }
         return that;
     };
     MiniComponent.Component = function (componentIns) {
