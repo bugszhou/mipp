@@ -45,6 +45,21 @@ export class MiniComponent<IData = IComponentData<any>> {
       delete that[item];
     });
 
+    try {
+      Object.keys((that as any)?.properties || {})
+        .filter((property) =>
+          Array.isArray((that as any)?.properties[property])
+        )
+        .forEach((property) => {
+          (that as any).properties = {
+            type: Array,
+            value: (that as any)?.properties[property],
+          };
+        });
+    } catch (e) {
+      console.error(e);
+    }
+
     return that;
   }
 
