@@ -406,9 +406,9 @@ export type IComponentData<
   IData = Record<string, any>
 > = (IProps extends { properties: any }
   ? Partial<{
-      [key in keyof IProps["properties"]]: IProps["properties"][key]["value"] extends unknown
-        ? IProps["properties"][key]
-        : IProps["properties"][key]["value"];
+      [key in keyof IProps["properties"]]: IProps["properties"][key] extends {type: any}
+        ? IProps["properties"][key]["value"]
+        : IProps["properties"][key];
     }>
   : unknown) &
   IData;
