@@ -232,11 +232,11 @@ export declare class MiniComponent<IData extends DataOption> {
   hasBehavior(behavior: object): void;
 
   /** 触发事件，参见组件事件 */
-  triggerEvent(
+  triggerEvent<DetailType = any>(
     name: string,
-    detail?: object,
+    detail?: DetailType,
     options?: WechatMiniprogram.Component.TriggerEventOption
-  ): void;
+): void
 
   /** 创建一个 SelectorQuery 对象，选择器选取范围为这个组件实例内 */
   createSelectorQuery(): WechatMiniprogram.SelectorQuery;
