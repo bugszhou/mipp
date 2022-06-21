@@ -33,6 +33,16 @@ export declare class Base<IData extends DataOption> {
     callback?: () => void
   ): void;
 
+  setDataAsync(
+    /** 这次要改变的数据
+     *
+     * 以 `key: value` 的形式表示，将 `this.data` 中的 `key` 对应的值改变成 `value`。
+     *
+     * 其中 `key` 可以以数据路径的形式给出，支持改变数组中的某一项或对象的某个属性，如 `array[2].message`，`a.b.c.d`，并且不需要在 this.data 中预先定义。
+     */
+    data: Partial<IData> & WechatMiniprogram.IAnyObject
+  ): Promise<void>;
+
   /** 检查组件是否具有 `behavior` （检查时会递归检查被直接或间接引入的所有behavior） */
   hasBehavior(behavior: object): void;
 
@@ -147,6 +157,8 @@ export declare class Base<IData extends DataOption> {
     options: WechatMiniprogram.Component.SetUpdatePerformanceListenerOption<WithDataPath>,
     callback?: WechatMiniprogram.Component.UpdatePerformanceListener<WithDataPath>
   ): void;
+
+  static render<IData = any>(ins: Base<IData>): void;
 }
 
 export interface IMiniComponentOptions
@@ -205,6 +217,16 @@ export declare class MiniComponent<IData extends DataOption> {
     /** setData引起的界面更新渲染完毕后的回调函数，最低基础库： `1.5.0` */
     callback?: () => void
   ): void;
+
+  setDataAsync(
+    /** 这次要改变的数据
+     *
+     * 以 `key: value` 的形式表示，将 `this.data` 中的 `key` 对应的值改变成 `value`。
+     *
+     * 其中 `key` 可以以数据路径的形式给出，支持改变数组中的某一项或对象的某个属性，如 `array[2].message`，`a.b.c.d`，并且不需要在 this.data 中预先定义。
+     */
+    data: Partial<IData> & WechatMiniprogram.IAnyObject
+  ): Promise<void>;
 
   /** 检查组件是否具有 `behavior` （检查时会递归检查被直接或间接引入的所有behavior） */
   hasBehavior(behavior: object): void;
@@ -374,7 +396,9 @@ export declare class MiniComponent<IData extends DataOption> {
    */
   error(err: Error): void;
 
-  static Component(componentIns: MiniComponent<unknown>): void;
+  static Component(componentIns: MiniComponent<any>): void;
+
+  static render(componentIns: MiniComponent<any>): void;
 }
 
 export function method(
@@ -406,7 +430,9 @@ export type IComponentData<
   IData = Record<string, any>
 > = (IProps extends { properties: any }
   ? Partial<{
-      [key in keyof IProps["properties"]]: IProps["properties"][key] extends {type: any}
+      [key in keyof IProps["properties"]]: IProps["properties"][key] extends {
+        type: any;
+      }
         ? IProps["properties"][key]["value"]
         : IProps["properties"][key];
     }>

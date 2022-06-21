@@ -1,6 +1,10 @@
 import clone from "rfdc";
 
-export default class Base<IData> {
+declare global {
+  const Page: any;
+}
+
+export default class Base<IData = any> {
   /**
    * 页面名称，注意唯一性
    */
@@ -12,6 +16,14 @@ export default class Base<IData> {
 
   constructor() {
     return Base.serialize(this);
+  }
+
+  setDataAsync(data: Partial<IData>) {
+    return new Promise((resolve) => {
+      (this as any).setData(data, () => {
+        resolve(void 0);
+      });
+    });
   }
 
   private delProperties = ["constructor"];
@@ -28,5 +40,9 @@ export default class Base<IData> {
     });
 
     return that;
+  }
+
+  static render<IData = any>(ins: Base<IData>) {
+    Page(ins);
   }
 }

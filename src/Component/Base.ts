@@ -30,6 +30,14 @@ export class MiniComponent<IData = IComponentData<any>> {
 
   private delProperties = ["constructor"];
 
+  setDataAsync(data: Partial<IData>) {
+    return new Promise((resolve) => {
+      (this as any).setData(data, () => {
+        resolve(void 0);
+      });
+    });
+  }
+
   static serialize<T extends MiniComponent<any>>(obj: T): any {
     const that = clone({ proto: true })(obj);
 
@@ -64,8 +72,12 @@ export class MiniComponent<IData = IComponentData<any>> {
     return that;
   }
 
-  static Component(componentIns: MiniComponent) {
-    Component(MiniComponent.serialize(componentIns));
+  static Component(ins: MiniComponent) {
+    MiniComponent.render(ins)
+  }
+
+  static render(ins: MiniComponent) {
+    Component(MiniComponent.serialize(ins));
   }
 }
 

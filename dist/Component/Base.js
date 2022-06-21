@@ -34,6 +34,14 @@ var MiniComponent = /** @class */ (function () {
         this.data = Object.create(null);
         this.delProperties = ["constructor"];
     }
+    MiniComponent.prototype.setDataAsync = function (data) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.setData(data, function () {
+                resolve(void 0);
+            });
+        });
+    };
     MiniComponent.serialize = function (obj) {
         var _a, _b, _c, _d;
         var that = rfdc_1.default({ proto: true })(obj);
@@ -61,8 +69,11 @@ var MiniComponent = /** @class */ (function () {
         }
         return that;
     };
-    MiniComponent.Component = function (componentIns) {
-        Component(MiniComponent.serialize(componentIns));
+    MiniComponent.Component = function (ins) {
+        MiniComponent.render(ins);
+    };
+    MiniComponent.render = function (ins) {
+        Component(MiniComponent.serialize(ins));
     };
     return MiniComponent;
 }());
