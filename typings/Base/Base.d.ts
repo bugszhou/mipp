@@ -168,7 +168,7 @@ export interface IMiniComponentRelationOption
 export interface IMiniComponentDefinitionFilter
   extends WechatMiniprogram.Component.DefinitionFilter {}
 
-export declare class MiniComponent<IData extends DataOption> {
+export declare class MiniComponent<IData extends DataOption = DataOption, IProps = DataOption> {
   /** 页面的文件路径 */
   is: string;
 
