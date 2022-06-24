@@ -67,6 +67,21 @@ var MiniComponent = /** @class */ (function () {
         catch (e) {
             console.error(e);
         }
+        var _that = that;
+        if (!(_that === null || _that === void 0 ? void 0 : _that.methods)) {
+            _that.methods = Object.create(null);
+        }
+        _that.methods.setDataAsync = _that.setDataAsync;
+        delete _that.setDataAsync;
+        try {
+            Object.keys(_that.methods).forEach(function (keyName) {
+                delete _that[keyName];
+            });
+            delete _that.delProperties;
+        }
+        catch (e) {
+            console.error(e);
+        }
         return that;
     };
     MiniComponent.Component = function (ins) {

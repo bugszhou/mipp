@@ -69,6 +69,23 @@ export class MiniComponent<IData = IComponentData<any>> {
       console.error(e);
     }
 
+    const _that: any = that;
+    if (!_that?.methods) {
+      _that.methods = Object.create(null);
+    }
+
+    _that.methods.setDataAsync = _that.setDataAsync;
+    delete _that.setDataAsync;
+
+    try {
+      Object.keys(_that.methods).forEach((keyName) => {
+        delete _that[keyName];
+      });
+      delete _that.delProperties;
+    } catch (e) {
+      console.error(e);
+    }
+
     return that;
   }
 
