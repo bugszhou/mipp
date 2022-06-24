@@ -74,7 +74,7 @@ var MiniComponent = /** @class */ (function () {
         _that.methods.setDataAsync = _that.setDataAsync;
         delete _that.setDataAsync;
         try {
-            Object.keys(_that.methods).forEach(function (keyName) {
+            __spreadArrays(Object.keys(_that.methods), Object.keys((_that === null || _that === void 0 ? void 0 : _that.pageLifetimes) || {}), Object.keys((_that === null || _that === void 0 ? void 0 : _that.observers) || {}), Object.keys((_that === null || _that === void 0 ? void 0 : _that.lifetimes) || {})).forEach(function (keyName) {
                 delete _that[keyName];
             });
             delete _that.delProperties;

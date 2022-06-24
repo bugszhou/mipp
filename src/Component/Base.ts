@@ -78,7 +78,12 @@ export class MiniComponent<IData = IComponentData<any>> {
     delete _that.setDataAsync;
 
     try {
-      Object.keys(_that.methods).forEach((keyName) => {
+      [
+        ...Object.keys(_that.methods),
+        ...Object.keys(_that?.pageLifetimes || {}),
+        ...Object.keys(_that?.observers || {}),
+        ...Object.keys(_that?.lifetimes || {}),
+      ].forEach((keyName) => {
         delete _that[keyName];
       });
       delete _that.delProperties;
@@ -90,7 +95,7 @@ export class MiniComponent<IData = IComponentData<any>> {
   }
 
   static Component(ins: MiniComponent) {
-    MiniComponent.render(ins)
+    MiniComponent.render(ins);
   }
 
   static render(ins: MiniComponent) {
