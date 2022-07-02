@@ -104,10 +104,8 @@ var MiniComponent = /** @class */ (function () {
                         ? defaultValue
                         : Object.create(null);
                     _that.properties[property] = {
-                        type: Object,
-                        value: typeof defaultType === "function" && defaultType === Object
-                            ? safeValue
-                            : val,
+                        type: typeof defaultType === "function" ? defaultType : Object,
+                        value: typeof defaultType === "function" ? safeValue : val,
                     };
                     return;
                 }
