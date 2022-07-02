@@ -12,6 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.lifetimes = exports.pageLifetime = exports.observer = exports.method = exports.MiniComponent = void 0;
 var rfdc_1 = __importDefault(require("rfdc"));
+function isPlainObject(val) {
+    if (val === null ||
+        Object.prototype.toString.call(val) !== "[object Object]") {
+        return false;
+    }
+    var prototype = Object.getPrototypeOf(val);
+    return prototype === null || prototype === Object.prototype;
+}
 var Base = /** @class */ (function () {
     function Base() {
         this.data = {};
@@ -43,31 +51,71 @@ var MiniComponent = /** @class */ (function () {
         });
     };
     MiniComponent.serialize = function (obj) {
-        var _a, _b, _c, _d;
         var that = rfdc_1.default({ proto: true })(obj);
+        var _that = that;
         var delProperties = __spreadArrays((Array.isArray(obj.delProperties) ? obj.delProperties : []));
         delProperties.forEach(function (item) {
             delete that[item];
         });
         try {
-            if (typeof ((_a = that) === null || _a === void 0 ? void 0 : _a.props) === "object") {
-                that.properties = (_b = that) === null || _b === void 0 ? void 0 : _b.props;
-                (_c = that) === null || _c === void 0 ? true : delete _c.props;
+            if (typeof (_that === null || _that === void 0 ? void 0 : _that.props) === "object") {
+                _that.properties = _that === null || _that === void 0 ? void 0 : _that.props;
+                _that === null || _that === void 0 ? true : delete _that.props;
             }
-            Object.keys(((_d = that) === null || _d === void 0 ? void 0 : _d.properties) || {})
-                .filter(function (property) { var _a; return Array.isArray((_a = that) === null || _a === void 0 ? void 0 : _a.properties[property]); })
-                .forEach(function (property) {
-                var _a;
-                that.properties[property] = {
-                    type: Array,
-                    value: (_a = that) === null || _a === void 0 ? void 0 : _a.properties[property],
-                };
+            Object.keys((_that === null || _that === void 0 ? void 0 : _that.properties) || {}).forEach(function (property) {
+                var _a, _b, _c, _d;
+                var val = (_a = _that === null || _that === void 0 ? void 0 : _that.properties) === null || _a === void 0 ? void 0 : _a[property];
+                if (typeof val === "undefined") {
+                    (_b = _that === null || _that === void 0 ? void 0 : _that.properties) === null || _b === void 0 ? true : delete _b[property];
+                    return;
+                }
+                if (typeof val === "string") {
+                    _that.properties[property] = {
+                        type: String,
+                        value: val,
+                    };
+                    return;
+                }
+                if (typeof val === "number") {
+                    _that.properties[property] = {
+                        type: Number,
+                        value: val,
+                    };
+                    return;
+                }
+                if (typeof val === "boolean") {
+                    _that.properties[property] = {
+                        type: Boolean,
+                        value: val,
+                    };
+                    return;
+                }
+                if (Array.isArray(val)) {
+                    _that.properties[property] = {
+                        type: Array,
+                        value: _that === null || _that === void 0 ? void 0 : _that.properties[property],
+                    };
+                    return;
+                }
+                if (isPlainObject(val) || val === null) {
+                    var defaultType = (_c = _that.properties[property]) === null || _c === void 0 ? void 0 : _c.type;
+                    var defaultValue = (_d = _that.properties[property]) === null || _d === void 0 ? void 0 : _d.value;
+                    var safeValue = defaultValue || defaultValue === null
+                        ? defaultValue
+                        : Object.create(null);
+                    _that.properties[property] = {
+                        type: Object,
+                        value: typeof defaultType === "function" && defaultType === Object
+                            ? safeValue
+                            : val,
+                    };
+                    return;
+                }
             });
         }
         catch (e) {
             console.error(e);
         }
-        var _that = that;
         if (!(_that === null || _that === void 0 ? void 0 : _that.methods)) {
             _that.methods = Object.create(null);
         }

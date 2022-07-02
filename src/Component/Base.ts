@@ -4,6 +4,17 @@ declare global {
   const Component: any;
 }
 
+function isPlainObject(val: any): val is Record<string, any> {
+  if (
+    val === null ||
+    Object.prototype.toString.call(val) !== "[object Object]"
+  ) {
+    return false;
+  }
+  const prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
+}
+
 export default class Base<IData> {
   /**
    * 组件名称，注意唯一性
@@ -41,6 +52,8 @@ export class MiniComponent<IData = IComponentData<any>> {
   static serialize<T extends MiniComponent<any>>(obj: T): any {
     const that = clone({ proto: true })(obj);
 
+    const _that: any = that;
+
     const delProperties = [
       ...(Array.isArray(obj.delProperties) ? obj.delProperties : []),
     ];
@@ -50,26 +63,72 @@ export class MiniComponent<IData = IComponentData<any>> {
     });
 
     try {
-      if (typeof (that as any)?.props === "object") {
-        (that as any).properties = (that as any)?.props;
-        delete (that as any)?.props;
+      if (typeof _that?.props === "object") {
+        _that.properties = _that?.props;
+        delete _that?.props;
       }
 
-      Object.keys((that as any)?.properties || {})
-        .filter((property) =>
-          Array.isArray((that as any)?.properties[property])
-        )
-        .forEach((property) => {
-          (that as any).properties[property] = {
-            type: Array,
-            value: (that as any)?.properties[property],
+      Object.keys(_that?.properties || {}).forEach((property) => {
+        const val = _that?.properties?.[property];
+
+        if (typeof val === "undefined") {
+          delete _that?.properties?.[property];
+          return;
+        }
+
+        if (typeof val === "string") {
+          _that.properties[property] = {
+            type: String,
+            value: val,
           };
-        });
+          return;
+        }
+
+        if (typeof val === "number") {
+          _that.properties[property] = {
+            type: Number,
+            value: val,
+          };
+          return;
+        }
+
+        if (typeof val === "boolean") {
+          _that.properties[property] = {
+            type: Boolean,
+            value: val,
+          };
+          return;
+        }
+
+        if (Array.isArray(val)) {
+          _that.properties[property] = {
+            type: Array,
+            value: _that?.properties[property],
+          };
+          return;
+        }
+
+        if (isPlainObject(val) || val === null) {
+          const defaultType = _that.properties[property]?.type;
+          const defaultValue = _that.properties[property]?.value;
+          const safeValue =
+            defaultValue || defaultValue === null
+              ? defaultValue
+              : Object.create(null);
+          _that.properties[property] = {
+            type: Object,
+            value:
+              typeof defaultType === "function" && defaultType === Object
+                ? safeValue
+                : val,
+          };
+          return;
+        }
+      });
     } catch (e) {
       console.error(e);
     }
 
-    const _that: any = that;
     if (!_that?.methods) {
       _that.methods = Object.create(null);
     }
