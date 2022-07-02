@@ -100,7 +100,11 @@ var MiniComponent = /** @class */ (function () {
                 if (isPlainObject(val) || val === null) {
                     var defaultType = (_c = _that.properties[property]) === null || _c === void 0 ? void 0 : _c.type;
                     var defaultValue = (_d = _that.properties[property]) === null || _d === void 0 ? void 0 : _d.value;
-                    var safeValue = defaultValue || defaultValue === null
+                    var safeValue = defaultValue ||
+                        defaultValue === null ||
+                        defaultValue === "" ||
+                        defaultValue === 0 ||
+                        defaultValue === false
                         ? defaultValue
                         : Object.create(null);
                     _that.properties[property] = {

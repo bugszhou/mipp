@@ -112,7 +112,11 @@ export class MiniComponent<IData = IComponentData<any>> {
           const defaultType = _that.properties[property]?.type;
           const defaultValue = _that.properties[property]?.value;
           const safeValue =
-            defaultValue || defaultValue === null
+            defaultValue ||
+            defaultValue === null ||
+            defaultValue === "" ||
+            defaultValue === 0 ||
+            defaultValue === false
               ? defaultValue
               : Object.create(null);
           _that.properties[property] = {
