@@ -136,17 +136,17 @@ export class PageBase<IData extends Record<string, any>> extends Base<IData> {
   ): IMippWePage.IAddToFavoritesContent;
 }
 
-export interface IMiniEvent<IDetail = unknown> {
+export interface IMiniEvent<IDetail = unknown, ITarget = any, ICurrentTarget = any> {
   /** 事件类型 */
   type: string;
   /** 页面打开到触发事件所经过的毫秒数 */
   timeStamp: number;
   detail?: IDetail;
   target?: {
-    dataset: Record<string, unknown>;
+    dataset: Record<string, ITarget>;
   };
   currentTarget?: {
-    dataset: Record<string, unknown>;
+    dataset: Record<string, ICurrentTarget>;
   };
 }
 
