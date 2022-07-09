@@ -18,6 +18,7 @@ exports.default = {
     EmptyBase: MiniBase_1.default,
     PageBase: Base_1.default,
     MiniComponent: Base_2.MiniComponent,
+    ComponentBase: Base_2.MiniComponent,
     observer: Base_2.observer,
     pageLifetime: Base_2.pageLifetime,
     lifetimes: Base_2.lifetimes,

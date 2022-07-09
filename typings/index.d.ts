@@ -12,6 +12,7 @@ import {
   IMiniComponentOptions,
   IMiniComponentRelationOption,
 } from "./Base/Base";
+import { ComponentBase, IWeappComponentProperties } from "./Base/MiniBase";
 
 export declare class EmptyBase<
   IData extends Record<string, any>
@@ -156,6 +157,7 @@ export interface IMiniEvent<
 
 export {
   MiniComponent,
+  ComponentBase,
   method,
   lifetimes,
   observer,
@@ -164,4 +166,5 @@ export {
   IMiniComponentDefinitionFilter,
   IMiniComponentOptions,
   IMiniComponentRelationOption,
+  IWeappComponentProperties,
 };

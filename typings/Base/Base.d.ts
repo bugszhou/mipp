@@ -169,28 +169,40 @@ export interface IMiniComponentRelationOption
 export interface IMiniComponentDefinitionFilter
   extends WechatMiniprogram.Component.DefinitionFilter {}
 
-export declare class MiniComponent<IData extends DataOption = DataOption, IProps = DataOption> {
+export declare class MiniComponent<
+  IData extends DataOption = DataOption,
+  IProps = DataOption
+> {
   /** 页面的文件路径 */
   is: string;
 
   id: string;
 
+  // 接口
   /** 类似于mixins和traits的组件间代码复用机制，参见 [behaviors](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/behaviors.html) */
   behaviors: string[];
+
+  // 接口
   /** 组件间关系定义，参见 [组件间关系](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html) */
   relations: {
     [componentName: string]: IMiniComponentRelationOption;
   };
+
+  // 接口
   /** 组件接受的外部样式类，参见 [外部样式类](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html) */
   externalClasses?: string[];
 
+  // 接口
   /** 一些选项（文档中介绍相关特性时会涉及具体的选项设置，这里暂不列举） */
   options: IMiniComponentOptions;
 
+  // 接口
   /** 定义段过滤器，用于自定义组件扩展，参见 [自定义组件扩展](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/extend.html)
    *
    * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
   definitionFilter?: IMiniComponentDefinitionFilter;
+
+  // 接口
   /**
    * 组件自定义导出，当使用 `behavior: wx://component-export` 时，这个定义段可以用于指定组件被 selectComponent 调用时的返回值，参见 [组件间通信与事件](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html)
    * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
@@ -229,15 +241,15 @@ export declare class MiniComponent<IData extends DataOption = DataOption, IProps
     data: Partial<IData> & WechatMiniprogram.IAnyObject
   ): Promise<void>;
 
-  /** 检查组件是否具有 `behavior` （检查时会递归检查被直接或间接引入的所有behavior） */
-  hasBehavior(behavior: object): void;
-
   /** 触发事件，参见组件事件 */
   triggerEvent<DetailType = any>(
     name: string,
     detail?: DetailType,
     options?: WechatMiniprogram.Component.TriggerEventOption
-): void
+  ): void;
+
+  /** 检查组件是否具有 `behavior` （检查时会递归检查被直接或间接引入的所有behavior） */
+  hasBehavior(behavior: object): void;
 
   /** 创建一个 SelectorQuery 对象，选择器选取范围为这个组件实例内 */
   createSelectorQuery(): WechatMiniprogram.SelectorQuery;
@@ -344,52 +356,70 @@ export declare class MiniComponent<IData extends DataOption = DataOption, IProps
     callback?: WechatMiniprogram.Component.UpdatePerformanceListener<WithDataPath>
   ): void;
 
+  // 接口
   /** 页面生命周期回调—监听页面显示
    *
    * 页面显示/切入前台时触发。
    */
   show(): void;
+
+  // 接口
   /** 页面生命周期回调—监听页面隐藏
    *
    * 页面隐藏/切入后台时触发。 如 `navigateTo` 或底部 `tab` 切换到其他页面，小程序切入后台等。
    */
   hide(): void;
+
+  // 接口
   /** 页面生命周期回调—监听页面尺寸变化
    *
    * 所在页面尺寸变化时执行
    */
   resize(size: WechatMiniprogram.Page.IResizeOption): void;
 
+  // 接口
   /**
    * 在组件实例刚刚被创建时执行，注意此时不能调用 `setData`
    *
    * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
+
+  // 接口
   created(): void;
   /**
    * 在组件实例进入页面节点树时执行
    *
    * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
+
+  // 接口
   attached(): void;
+
+  // 接口
   /**
    * 在组件在视图层布局完成后执行
    *
    * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
   ready(): void;
+
+  // 接口
   /**
    * 在组件实例被移动到节点树另一个位置时执行
    *
    * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
   moved(): void;
+
+  // 接口
   /**
    * 在组件实例被从页面节点树移除时执行
    *
    * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
   detached(): void;
+
+  // 接口
   /**
    * 每当组件方法抛出错误时执行
    *

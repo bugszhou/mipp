@@ -18,6 +18,7 @@ export default {
   EmptyBase: MiniBase,
   PageBase: Base,
   MiniComponent,
+  ComponentBase: MiniComponent,
   observer,
   pageLifetime,
   lifetimes,
