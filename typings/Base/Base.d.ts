@@ -159,6 +159,7 @@ export declare class Base<IData extends DataOption> {
   ): void;
 
   static render<IData = any>(ins: Base<IData>): void;
+  static serialize<IData = any>(ins: Base<IData>): void;
 }
 
 export interface IMiniComponentOptions
@@ -399,6 +400,7 @@ export declare class MiniComponent<IData extends DataOption = DataOption, IProps
   static Component(componentIns: MiniComponent<any>): void;
 
   static render(componentIns: MiniComponent<any>): void;
+  static serialize<IData = any>(ins: MiniComponent<IData>): void;
 }
 
 export function method(
