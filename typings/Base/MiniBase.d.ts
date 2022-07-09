@@ -88,8 +88,8 @@ export declare class ComponentBase<
    */
   error(err: Error): void;
 
-  static render(componentIns: MiniComponent<any>): void;
-  static serialize<IData = any>(ins: MiniComponent<IData>): void;
+  static render(ins: ComponentBase<any>): void;
+  static serialize(ins: any): void;
 }
 
 export interface IWeappComponentProperties {
