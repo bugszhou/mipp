@@ -12,7 +12,14 @@ export const PageBase = Base;
 
 export const EmptyBase = MiniBase;
 
-export { observer, pageLifetime, lifetimes, method, MiniComponent };
+export {
+  observer,
+  pageLifetime,
+  lifetimes,
+  method,
+  MiniComponent,
+  MiniComponent as ComponentBase,
+};
 
 export default {
   EmptyBase: MiniBase,
