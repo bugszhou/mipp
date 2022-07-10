@@ -427,10 +427,10 @@ export declare class MiniComponent<
    */
   error(err: Error): void;
 
-  static Component(componentIns: MiniComponent<any>): void;
+  static Component(ins: any): void;
 
-  static render(componentIns: MiniComponent<any>): void;
-  static serialize<IData = any>(ins: MiniComponent<IData>): void;
+  static render(ins: any): void;
+  static serialize(ins: any): void;
 }
 
 export function method(

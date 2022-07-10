@@ -1,4 +1,4 @@
-import { IMiniComponentOptions, MiniComponent } from "./Base";
+import { IMiniComponentOptions } from "./Base";
 
 type DataOption = Record<string, any>;
 
@@ -88,7 +88,7 @@ export declare class ComponentBase<
    */
   error(err: Error): void;
 
-  static render(ins: ComponentBase<any>): void;
+  static render(ins: any): void;
   static serialize(ins: any): void;
 }
 
