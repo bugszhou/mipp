@@ -204,5 +204,15 @@ export function lifetimes(
   if (!UIInterface.lifetimes) {
     UIInterface.lifetimes = Object.create(null);
   }
-  UIInterface.lifetimes[methodName] = descriptor.value;
+
+  const base = Object.getPrototypeOf(UIInterface);
+
+  const fn = descriptor.value;
+
+  UIInterface.lifetimes[methodName] = async function lifetimesFn(...opts) {
+    if (typeof base?.created === "function") {
+      await base.created.apply(this, opts);
+    }
+    await fn.apply(this, opts);
+  };
 }
