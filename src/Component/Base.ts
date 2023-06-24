@@ -1,3 +1,4 @@
+import rfdc from "rfdc";
 import clone from "rfdc";
 
 declare global {
@@ -168,9 +169,15 @@ export function method(
   methodName,
   descriptor: PropertyDescriptor
 ) {
+  const methods = rfdc()(UIInterface?.methods ?? Object.create(null));
+  delete UIInterface?.__proto__?.methods;
   if (!UIInterface.hasOwnProperty("methods")) {
     UIInterface.methods = Object.create(null);
   }
+  UIInterface.methods = {
+    ...UIInterface.methods,
+    ...(methods ?? Object.create(null)),
+  };
   UIInterface.methods[methodName] = descriptor.value;
 }
 
@@ -179,9 +186,15 @@ export function observer(
   methodName,
   descriptor: PropertyDescriptor
 ) {
+  const observers = rfdc()(UIInterface?.observers ?? Object.create(null));
+  delete UIInterface?.__proto__?.observers;
   if (!UIInterface.hasOwnProperty("observers")) {
     UIInterface.observers = Object.create(null);
   }
+  UIInterface.observers = {
+    ...UIInterface.observers,
+    ...(observers ?? Object.create(null)),
+  };
   UIInterface.observers[methodName] = descriptor.value;
 }
 
@@ -190,9 +203,17 @@ export function pageLifetime(
   methodName,
   descriptor: PropertyDescriptor
 ) {
+  const pageLifetimes = rfdc()(
+    UIInterface?.pageLifetimes ?? Object.create(null)
+  );
+  delete UIInterface?.__proto__?.pageLifetimes;
   if (!UIInterface.hasOwnProperty("pageLifetimes")) {
     UIInterface.pageLifetimes = Object.create(null);
   }
+  UIInterface.pageLifetimes = {
+    ...UIInterface.pageLifetimes,
+    ...(pageLifetimes ?? Object.create(null)),
+  };
   UIInterface.pageLifetimes[methodName] = descriptor.value;
 }
 
@@ -201,9 +222,15 @@ export function lifetimes(
   methodName,
   descriptor: PropertyDescriptor
 ) {
+  const lifetimes = rfdc()(UIInterface?.lifetimes ?? Object.create(null));
+  delete UIInterface?.__proto__?.lifetimes;
   if (!UIInterface.hasOwnProperty("lifetimes")) {
     UIInterface.lifetimes = Object.create(null);
   }
+  UIInterface.lifetimes = {
+    ...UIInterface.lifetimes,
+    ...(lifetimes ?? Object.create(null)),
+  };
 
   const base = Object.getPrototypeOf(UIInterface);
 
@@ -222,9 +249,14 @@ export function lifetime(
   methodName,
   descriptor: PropertyDescriptor
 ) {
+  const lifetimes = rfdc()(UIInterface?.lifetimes ?? Object.create(null));
+  delete UIInterface?.__proto__?.lifetimes;
   if (!UIInterface.hasOwnProperty("lifetimes")) {
     UIInterface.lifetimes = Object.create(null);
   }
-
+  UIInterface.lifetimes = {
+    ...UIInterface.lifetimes,
+    ...(lifetimes ?? Object.create(null)),
+  };
   UIInterface.lifetimes[methodName] = descriptor.value;
 }

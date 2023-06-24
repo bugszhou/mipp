@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -48,6 +59,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.lifetime = exports.lifetimes = exports.pageLifetime = exports.observer = exports.method = exports.MiniComponent = void 0;
 var rfdc_1 = __importDefault(require("rfdc"));
+var rfdc_2 = __importDefault(require("rfdc"));
 function isPlainObject(val) {
     if (val === null ||
         Object.prototype.toString.call(val) !== "[object Object]") {
@@ -87,7 +99,7 @@ var MiniComponent = /** @class */ (function () {
         });
     };
     MiniComponent.serialize = function (obj) {
-        var that = rfdc_1.default({ proto: true })(obj);
+        var that = rfdc_2.default({ proto: true })(obj);
         var _that = that;
         var delProperties = __spreadArrays((Array.isArray(obj.delProperties) ? obj.delProperties : []));
         delProperties.forEach(function (item) {
@@ -180,30 +192,46 @@ var MiniComponent = /** @class */ (function () {
 }());
 exports.MiniComponent = MiniComponent;
 function method(UIInterface, methodName, descriptor) {
+    var _a, _b;
+    var methods = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.methods) !== null && _a !== void 0 ? _a : Object.create(null));
+    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.methods;
     if (!UIInterface.hasOwnProperty("methods")) {
         UIInterface.methods = Object.create(null);
     }
+    UIInterface.methods = __assign(__assign({}, UIInterface.methods), (methods !== null && methods !== void 0 ? methods : Object.create(null)));
     UIInterface.methods[methodName] = descriptor.value;
 }
 exports.method = method;
 function observer(UIInterface, methodName, descriptor) {
+    var _a, _b;
+    var observers = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.observers) !== null && _a !== void 0 ? _a : Object.create(null));
+    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.observers;
     if (!UIInterface.hasOwnProperty("observers")) {
         UIInterface.observers = Object.create(null);
     }
+    UIInterface.observers = __assign(__assign({}, UIInterface.observers), (observers !== null && observers !== void 0 ? observers : Object.create(null)));
     UIInterface.observers[methodName] = descriptor.value;
 }
 exports.observer = observer;
 function pageLifetime(UIInterface, methodName, descriptor) {
+    var _a, _b;
+    var pageLifetimes = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.pageLifetimes) !== null && _a !== void 0 ? _a : Object.create(null));
+    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.pageLifetimes;
     if (!UIInterface.hasOwnProperty("pageLifetimes")) {
         UIInterface.pageLifetimes = Object.create(null);
     }
+    UIInterface.pageLifetimes = __assign(__assign({}, UIInterface.pageLifetimes), (pageLifetimes !== null && pageLifetimes !== void 0 ? pageLifetimes : Object.create(null)));
     UIInterface.pageLifetimes[methodName] = descriptor.value;
 }
 exports.pageLifetime = pageLifetime;
 function lifetimes(UIInterface, methodName, descriptor) {
+    var _a, _b;
+    var lifetimes = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.lifetimes) !== null && _a !== void 0 ? _a : Object.create(null));
+    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.lifetimes;
     if (!UIInterface.hasOwnProperty("lifetimes")) {
         UIInterface.lifetimes = Object.create(null);
     }
+    UIInterface.lifetimes = __assign(__assign({}, UIInterface.lifetimes), (lifetimes !== null && lifetimes !== void 0 ? lifetimes : Object.create(null)));
     var base = Object.getPrototypeOf(UIInterface);
     var fn = descriptor.value;
     UIInterface.lifetimes[methodName] = function lifetimesFn() {
@@ -233,9 +261,13 @@ function lifetimes(UIInterface, methodName, descriptor) {
 }
 exports.lifetimes = lifetimes;
 function lifetime(UIInterface, methodName, descriptor) {
+    var _a, _b;
+    var lifetimes = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.lifetimes) !== null && _a !== void 0 ? _a : Object.create(null));
+    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.lifetimes;
     if (!UIInterface.hasOwnProperty("lifetimes")) {
         UIInterface.lifetimes = Object.create(null);
     }
+    UIInterface.lifetimes = __assign(__assign({}, UIInterface.lifetimes), (lifetimes !== null && lifetimes !== void 0 ? lifetimes : Object.create(null)));
     UIInterface.lifetimes[methodName] = descriptor.value;
 }
 exports.lifetime = lifetime;
