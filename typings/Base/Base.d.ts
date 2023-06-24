@@ -457,6 +457,12 @@ export function lifetimes(
   descriptor: PropertyDescriptor
 ): void;
 
+export function lifetime(
+  UIInterface: any,
+  methodName: string,
+  descriptor: PropertyDescriptor
+): void;
+
 export type IComponentData<
   IProps,
   IData = Record<string, any>
