@@ -168,7 +168,7 @@ export function method(
   methodName,
   descriptor: PropertyDescriptor
 ) {
-  if (!UIInterface.methods) {
+  if (!UIInterface.hasOwnProperty("methods")) {
     UIInterface.methods = Object.create(null);
   }
   UIInterface.methods[methodName] = descriptor.value;
@@ -179,7 +179,7 @@ export function observer(
   methodName,
   descriptor: PropertyDescriptor
 ) {
-  if (!UIInterface.observers) {
+  if (!UIInterface.hasOwnProperty("observers")) {
     UIInterface.observers = Object.create(null);
   }
   UIInterface.observers[methodName] = descriptor.value;
@@ -190,7 +190,7 @@ export function pageLifetime(
   methodName,
   descriptor: PropertyDescriptor
 ) {
-  if (!UIInterface.pageLifetimes) {
+  if (!UIInterface.hasOwnProperty("pageLifetimes")) {
     UIInterface.pageLifetimes = Object.create(null);
   }
   UIInterface.pageLifetimes[methodName] = descriptor.value;
@@ -201,7 +201,7 @@ export function lifetimes(
   methodName,
   descriptor: PropertyDescriptor
 ) {
-  if (!UIInterface.lifetimes) {
+  if (!UIInterface.hasOwnProperty("lifetimes")) {
     UIInterface.lifetimes = Object.create(null);
   }
 
@@ -211,8 +211,20 @@ export function lifetimes(
 
   UIInterface.lifetimes[methodName] = async function lifetimesFn(...opts) {
     if (typeof base?.created === "function") {
+      // 为什么手动执行一次created
       await base.created.apply(this, opts);
     }
     await fn.apply(this, opts);
   };
+}
+export function lifetime(
+  UIInterface,
+  methodName,
+  descriptor: PropertyDescriptor
+) {
+  if (!UIInterface.hasOwnProperty("lifetimes")) {
+    UIInterface.lifetimes = Object.create(null);
+  }
+
+  UIInterface.lifetimes[methodName] = descriptor.value;
 }

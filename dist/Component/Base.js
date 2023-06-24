@@ -46,7 +46,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.lifetimes = exports.pageLifetime = exports.observer = exports.method = exports.MiniComponent = void 0;
+exports.lifetime = exports.lifetimes = exports.pageLifetime = exports.observer = exports.method = exports.MiniComponent = void 0;
 var rfdc_1 = __importDefault(require("rfdc"));
 function isPlainObject(val) {
     if (val === null ||
@@ -180,28 +180,28 @@ var MiniComponent = /** @class */ (function () {
 }());
 exports.MiniComponent = MiniComponent;
 function method(UIInterface, methodName, descriptor) {
-    if (!UIInterface.methods) {
+    if (!UIInterface.hasOwnProperty("methods")) {
         UIInterface.methods = Object.create(null);
     }
     UIInterface.methods[methodName] = descriptor.value;
 }
 exports.method = method;
 function observer(UIInterface, methodName, descriptor) {
-    if (!UIInterface.observers) {
+    if (!UIInterface.hasOwnProperty("observers")) {
         UIInterface.observers = Object.create(null);
     }
     UIInterface.observers[methodName] = descriptor.value;
 }
 exports.observer = observer;
 function pageLifetime(UIInterface, methodName, descriptor) {
-    if (!UIInterface.pageLifetimes) {
+    if (!UIInterface.hasOwnProperty("pageLifetimes")) {
         UIInterface.pageLifetimes = Object.create(null);
     }
     UIInterface.pageLifetimes[methodName] = descriptor.value;
 }
 exports.pageLifetime = pageLifetime;
 function lifetimes(UIInterface, methodName, descriptor) {
-    if (!UIInterface.lifetimes) {
+    if (!UIInterface.hasOwnProperty("lifetimes")) {
         UIInterface.lifetimes = Object.create(null);
     }
     var base = Object.getPrototypeOf(UIInterface);
@@ -216,8 +216,10 @@ function lifetimes(UIInterface, methodName, descriptor) {
                 switch (_a.label) {
                     case 0:
                         if (!(typeof (base === null || base === void 0 ? void 0 : base.created) === "function")) return [3 /*break*/, 2];
+                        // 为什么手动执行一次created
                         return [4 /*yield*/, base.created.apply(this, opts)];
                     case 1:
+                        // 为什么手动执行一次created
                         _a.sent();
                         _a.label = 2;
                     case 2: return [4 /*yield*/, fn.apply(this, opts)];
@@ -230,3 +232,10 @@ function lifetimes(UIInterface, methodName, descriptor) {
     };
 }
 exports.lifetimes = lifetimes;
+function lifetime(UIInterface, methodName, descriptor) {
+    if (!UIInterface.hasOwnProperty("lifetimes")) {
+        UIInterface.lifetimes = Object.create(null);
+    }
+    UIInterface.lifetimes[methodName] = descriptor.value;
+}
+exports.lifetime = lifetime;
