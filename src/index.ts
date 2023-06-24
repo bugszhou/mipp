@@ -6,6 +6,7 @@ import {
   observer,
   pageLifetime,
   lifetimes,
+  lifetime,
 } from "./Component/Base";
 
 export const PageBase = Base;
@@ -16,6 +17,7 @@ export {
   observer,
   pageLifetime,
   lifetimes,
+  lifetime,
   method,
   MiniComponent,
   MiniComponent as ComponentBase,
@@ -29,5 +31,6 @@ export default {
   observer,
   pageLifetime,
   lifetimes,
+  lifetime,
   method,
 };
