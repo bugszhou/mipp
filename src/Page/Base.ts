@@ -29,7 +29,7 @@ export default class Base<IData = any> {
   private delProperties = ["constructor"];
 
   static serialize<T extends Base<any>>(obj: T): any {
-    const that = clone({ proto: true })(obj);
+    const that: any = clone({ proto: true })(obj);
 
     const delProperties = [
       ...(Array.isArray(obj.delProperties) ? obj.delProperties : []),
@@ -38,6 +38,24 @@ export default class Base<IData = any> {
     delProperties.forEach((item) => {
       delete that[item];
     });
+
+    const createdFn = that?.onLoad;
+    that.onLoad = function created(...opts: any) {
+      try {
+        this.viewStatus = "load";
+      } catch {}
+      return createdFn?.apply?.(this, opts);
+    };
+
+    const readyFn = that?.onReady;
+    that.onReady = function ready(...opts: any) {
+      try {
+        if (this.viewStatus !== "ready") {
+          this.viewStatus = "ready";
+        }
+      } catch {}
+      return readyFn?.apply?.(this, opts);
+    };
 
     return that;
   }
