@@ -40,6 +40,8 @@ export type IComponentData<
 export class MiniComponent<IData = IComponentData<any>> {
   data: IData = Object.create(null);
 
+  viewStatus: "load" | "ready" = "load";
+
   private delProperties = ["constructor"];
 
   setDataAsync(data: Partial<IData>) {
@@ -138,6 +140,28 @@ export class MiniComponent<IData = IComponentData<any>> {
     _that.methods.setDataAsync = _that.setDataAsync;
     delete _that.setDataAsync;
 
+    if (!_that?.lifetimes) {
+      _that.lifetimes = Object.create(null);
+    }
+
+    const createdFn = _that?.lifetimes?.created;
+    _that.lifetimes.created = function created(...opts: any) {
+      try {
+        this.viewStatus = "load";
+      } catch {}
+      return createdFn?.apply?.(this, opts);
+    };
+
+    const readyFn = _that?.lifetimes?.ready;
+    _that.lifetimes.ready = function ready(...opts: any) {
+      try {
+        if (this.viewStatus !== "ready") {
+          this.viewStatus = "ready";
+        }
+      } catch {}
+      return readyFn?.apply?.(this, opts);
+    };
+
     try {
       [
         ...Object.keys(_that.methods),
@@ -170,7 +194,7 @@ export function method(
   descriptor: PropertyDescriptor
 ) {
   const methods = rfdc()(UIInterface?.methods ?? Object.create(null));
-  delete UIInterface?.__proto__?.methods;
+
   if (!UIInterface.hasOwnProperty("methods")) {
     UIInterface.methods = Object.create(null);
   }
@@ -187,7 +211,7 @@ export function observer(
   descriptor: PropertyDescriptor
 ) {
   const observers = rfdc()(UIInterface?.observers ?? Object.create(null));
-  delete UIInterface?.__proto__?.observers;
+
   if (!UIInterface.hasOwnProperty("observers")) {
     UIInterface.observers = Object.create(null);
   }
@@ -206,7 +230,7 @@ export function pageLifetime(
   const pageLifetimes = rfdc()(
     UIInterface?.pageLifetimes ?? Object.create(null)
   );
-  delete UIInterface?.__proto__?.pageLifetimes;
+
   if (!UIInterface.hasOwnProperty("pageLifetimes")) {
     UIInterface.pageLifetimes = Object.create(null);
   }
@@ -223,7 +247,7 @@ export function lifetimes(
   descriptor: PropertyDescriptor
 ) {
   const lifetimes = rfdc()(UIInterface?.lifetimes ?? Object.create(null));
-  delete UIInterface?.__proto__?.lifetimes;
+
   if (!UIInterface.hasOwnProperty("lifetimes")) {
     UIInterface.lifetimes = Object.create(null);
   }
@@ -250,7 +274,7 @@ export function lifetime(
   descriptor: PropertyDescriptor
 ) {
   const lifetimes = rfdc()(UIInterface?.lifetimes ?? Object.create(null));
-  delete UIInterface?.__proto__?.lifetimes;
+
   if (!UIInterface.hasOwnProperty("lifetimes")) {
     UIInterface.lifetimes = Object.create(null);
   }

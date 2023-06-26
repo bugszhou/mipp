@@ -88,6 +88,7 @@ exports.default = Base;
 var MiniComponent = /** @class */ (function () {
     function MiniComponent() {
         this.data = Object.create(null);
+        this.viewStatus = "load";
         this.delProperties = ["constructor"];
     }
     MiniComponent.prototype.setDataAsync = function (data) {
@@ -99,6 +100,7 @@ var MiniComponent = /** @class */ (function () {
         });
     };
     MiniComponent.serialize = function (obj) {
+        var _a, _b;
         var that = rfdc_2.default({ proto: true })(obj);
         var _that = that;
         var delProperties = __spreadArrays((Array.isArray(obj.delProperties) ? obj.delProperties : []));
@@ -171,6 +173,37 @@ var MiniComponent = /** @class */ (function () {
         }
         _that.methods.setDataAsync = _that.setDataAsync;
         delete _that.setDataAsync;
+        if (!(_that === null || _that === void 0 ? void 0 : _that.lifetimes)) {
+            _that.lifetimes = Object.create(null);
+        }
+        var createdFn = (_a = _that === null || _that === void 0 ? void 0 : _that.lifetimes) === null || _a === void 0 ? void 0 : _a.created;
+        _that.lifetimes.created = function created() {
+            var _a;
+            var opts = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                opts[_i] = arguments[_i];
+            }
+            try {
+                this.viewStatus = "load";
+            }
+            catch (_b) { }
+            return (_a = createdFn === null || createdFn === void 0 ? void 0 : createdFn.apply) === null || _a === void 0 ? void 0 : _a.call(createdFn, this, opts);
+        };
+        var readyFn = (_b = _that === null || _that === void 0 ? void 0 : _that.lifetimes) === null || _b === void 0 ? void 0 : _b.ready;
+        _that.lifetimes.ready = function ready() {
+            var _a;
+            var opts = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                opts[_i] = arguments[_i];
+            }
+            try {
+                if (this.viewStatus !== "ready") {
+                    this.viewStatus = "ready";
+                }
+            }
+            catch (_b) { }
+            return (_a = readyFn === null || readyFn === void 0 ? void 0 : readyFn.apply) === null || _a === void 0 ? void 0 : _a.call(readyFn, this, opts);
+        };
         try {
             __spreadArrays(Object.keys(_that.methods), Object.keys((_that === null || _that === void 0 ? void 0 : _that.pageLifetimes) || {}), Object.keys((_that === null || _that === void 0 ? void 0 : _that.observers) || {}), Object.keys((_that === null || _that === void 0 ? void 0 : _that.lifetimes) || {})).forEach(function (keyName) {
                 delete _that[keyName];
@@ -192,9 +225,8 @@ var MiniComponent = /** @class */ (function () {
 }());
 exports.MiniComponent = MiniComponent;
 function method(UIInterface, methodName, descriptor) {
-    var _a, _b;
+    var _a;
     var methods = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.methods) !== null && _a !== void 0 ? _a : Object.create(null));
-    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.methods;
     if (!UIInterface.hasOwnProperty("methods")) {
         UIInterface.methods = Object.create(null);
     }
@@ -203,9 +235,8 @@ function method(UIInterface, methodName, descriptor) {
 }
 exports.method = method;
 function observer(UIInterface, methodName, descriptor) {
-    var _a, _b;
+    var _a;
     var observers = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.observers) !== null && _a !== void 0 ? _a : Object.create(null));
-    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.observers;
     if (!UIInterface.hasOwnProperty("observers")) {
         UIInterface.observers = Object.create(null);
     }
@@ -214,9 +245,8 @@ function observer(UIInterface, methodName, descriptor) {
 }
 exports.observer = observer;
 function pageLifetime(UIInterface, methodName, descriptor) {
-    var _a, _b;
+    var _a;
     var pageLifetimes = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.pageLifetimes) !== null && _a !== void 0 ? _a : Object.create(null));
-    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.pageLifetimes;
     if (!UIInterface.hasOwnProperty("pageLifetimes")) {
         UIInterface.pageLifetimes = Object.create(null);
     }
@@ -225,9 +255,8 @@ function pageLifetime(UIInterface, methodName, descriptor) {
 }
 exports.pageLifetime = pageLifetime;
 function lifetimes(UIInterface, methodName, descriptor) {
-    var _a, _b;
+    var _a;
     var lifetimes = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.lifetimes) !== null && _a !== void 0 ? _a : Object.create(null));
-    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.lifetimes;
     if (!UIInterface.hasOwnProperty("lifetimes")) {
         UIInterface.lifetimes = Object.create(null);
     }
@@ -261,9 +290,8 @@ function lifetimes(UIInterface, methodName, descriptor) {
 }
 exports.lifetimes = lifetimes;
 function lifetime(UIInterface, methodName, descriptor) {
-    var _a, _b;
+    var _a;
     var lifetimes = rfdc_1.default()((_a = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.lifetimes) !== null && _a !== void 0 ? _a : Object.create(null));
-    (_b = UIInterface === null || UIInterface === void 0 ? void 0 : UIInterface.__proto__) === null || _b === void 0 ? true : delete _b.lifetimes;
     if (!UIInterface.hasOwnProperty("lifetimes")) {
         UIInterface.lifetimes = Object.create(null);
     }
