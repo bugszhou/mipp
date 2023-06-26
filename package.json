@@ -1,6 +1,6 @@
 {
   "name": "mipp",
-  "version": "1.10.3",
+  "version": "1.10.4",
   "description": "小程序ts",
   "main": "dist/index.js",
   "module": "dist/index.js",
