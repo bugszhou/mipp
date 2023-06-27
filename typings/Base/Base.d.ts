@@ -463,6 +463,12 @@ export function lifetime(
   descriptor: PropertyDescriptor
 ): void;
 
+export function extendLifetime(
+  UIInterface: any,
+  methodName: string,
+  descriptor: PropertyDescriptor
+): void;
+
 export type IComponentData<
   IProps,
   IData = Record<string, any>

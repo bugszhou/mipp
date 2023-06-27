@@ -7,6 +7,7 @@ import {
   pageLifetime,
   lifetimes,
   lifetime,
+  extendLifetime,
 } from "./Component/Base";
 
 export const PageBase = Base;
@@ -18,6 +19,7 @@ export {
   pageLifetime,
   lifetimes,
   lifetime,
+  extendLifetime,
   method,
   MiniComponent,
   MiniComponent as ComponentBase,
@@ -32,5 +34,6 @@ export default {
   pageLifetime,
   lifetimes,
   lifetime,
+  extendLifetime,
   method,
 };
