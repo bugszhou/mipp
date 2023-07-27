@@ -43,6 +43,7 @@ export default class Base<IData = any> {
     that.onLoad = function created(...opts: any) {
       try {
         this.viewStatus = "load";
+        this?.beforeOnLoad?.(...opts);
       } catch {}
       return createdFn?.apply?.(this, opts);
     };
