@@ -178,16 +178,17 @@ var MiniComponent = /** @class */ (function () {
         }
         var createdFn = ((_a = _that === null || _that === void 0 ? void 0 : _that.lifetimes) === null || _a === void 0 ? void 0 : _a.created) || (_that === null || _that === void 0 ? void 0 : _that.created);
         _that.lifetimes.created = function created() {
-            var _a;
+            var _a, _b;
             var opts = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 opts[_i] = arguments[_i];
             }
             try {
                 this.viewStatus = "load";
+                (_a = this === null || this === void 0 ? void 0 : this.beforeCreated) === null || _a === void 0 ? void 0 : _a.call.apply(_a, __spreadArrays([this], opts));
             }
-            catch (_b) { }
-            return (_a = createdFn === null || createdFn === void 0 ? void 0 : createdFn.apply) === null || _a === void 0 ? void 0 : _a.call(createdFn, this, opts);
+            catch (_c) { }
+            return (_b = createdFn === null || createdFn === void 0 ? void 0 : createdFn.apply) === null || _b === void 0 ? void 0 : _b.call(createdFn, this, opts);
         };
         var readyFn = ((_b = _that === null || _that === void 0 ? void 0 : _that.lifetimes) === null || _b === void 0 ? void 0 : _b.ready) || (_that === null || _that === void 0 ? void 0 : _that.ready);
         _that.lifetimes.ready = function ready() {

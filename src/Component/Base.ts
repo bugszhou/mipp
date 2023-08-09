@@ -148,6 +148,7 @@ export class MiniComponent<IData = IComponentData<any>> {
     _that.lifetimes.created = function created(...opts: any) {
       try {
         this.viewStatus = "load";
+        this?.beforeCreated?.(...opts);
       } catch {}
       return createdFn?.apply?.(this, opts);
     };
