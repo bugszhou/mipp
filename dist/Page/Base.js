@@ -15,7 +15,6 @@ var Base = /** @class */ (function () {
     function Base() {
         this.data = {};
         this.delProperties = ["constructor"];
-        return Base.serialize(this);
     }
     Object.defineProperty(Base.prototype, "componentName", {
         /**
@@ -35,29 +34,35 @@ var Base = /** @class */ (function () {
             });
         });
     };
+    Base.before = function () {
+        return Object.create(null);
+    };
     Base.serialize = function (obj) {
+        var _a;
         var that = rfdc_1.default({ proto: true })(obj);
         var delProperties = __spreadArrays((Array.isArray(obj.delProperties) ? obj.delProperties : []));
         delProperties.forEach(function (item) {
             delete that[item];
         });
+        var beforeObj = (_a = Base === null || Base === void 0 ? void 0 : Base.before) === null || _a === void 0 ? void 0 : _a.call(Base);
         var createdFn = that === null || that === void 0 ? void 0 : that.onLoad;
         that.onLoad = function created() {
-            var _a, _b;
+            var _a, _b, _c;
             var opts = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 opts[_i] = arguments[_i];
             }
             try {
                 this.viewStatus = "load";
-                (_a = this === null || this === void 0 ? void 0 : this.beforeOnLoad) === null || _a === void 0 ? void 0 : _a.call.apply(_a, __spreadArrays([this], opts));
+                (_a = beforeObj === null || beforeObj === void 0 ? void 0 : beforeObj.onLoad) === null || _a === void 0 ? void 0 : _a.apply(this, opts);
+                (_b = this === null || this === void 0 ? void 0 : this.beforeOnLoad) === null || _b === void 0 ? void 0 : _b.call.apply(_b, __spreadArrays([this], opts));
             }
-            catch (_c) { }
-            return (_b = createdFn === null || createdFn === void 0 ? void 0 : createdFn.apply) === null || _b === void 0 ? void 0 : _b.call(createdFn, this, opts);
+            catch (_d) { }
+            return (_c = createdFn === null || createdFn === void 0 ? void 0 : createdFn.apply) === null || _c === void 0 ? void 0 : _c.call(createdFn, this, opts);
         };
         var readyFn = that === null || that === void 0 ? void 0 : that.onReady;
         that.onReady = function ready() {
-            var _a;
+            var _a, _b;
             var opts = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 opts[_i] = arguments[_i];
@@ -66,9 +71,23 @@ var Base = /** @class */ (function () {
                 if (this.viewStatus !== "ready") {
                     this.viewStatus = "ready";
                 }
+                (_a = beforeObj === null || beforeObj === void 0 ? void 0 : beforeObj.onReady) === null || _a === void 0 ? void 0 : _a.apply(this, opts);
             }
-            catch (_b) { }
-            return (_a = readyFn === null || readyFn === void 0 ? void 0 : readyFn.apply) === null || _a === void 0 ? void 0 : _a.call(readyFn, this, opts);
+            catch (_c) { }
+            return (_b = readyFn === null || readyFn === void 0 ? void 0 : readyFn.apply) === null || _b === void 0 ? void 0 : _b.call(readyFn, this, opts);
+        };
+        var showFn = that === null || that === void 0 ? void 0 : that.onShow;
+        that.onShow = function show() {
+            var _a, _b;
+            var opts = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                opts[_i] = arguments[_i];
+            }
+            try {
+                (_a = beforeObj === null || beforeObj === void 0 ? void 0 : beforeObj.onShow) === null || _a === void 0 ? void 0 : _a.apply(this, opts);
+            }
+            catch (_c) { }
+            return (_b = showFn === null || showFn === void 0 ? void 0 : showFn.apply) === null || _b === void 0 ? void 0 : _b.call(showFn, this, opts);
         };
         return that;
     };

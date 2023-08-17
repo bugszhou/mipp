@@ -42,6 +42,13 @@ export class MiniComponent<IData = IComponentData<any>> {
 
   viewStatus: "load" | "ready" = "load";
 
+  static before(): {
+    created: () => void;
+    ready: () => void;
+  } {
+    return Object.create(null);
+  }
+
   private delProperties = ["constructor"];
 
   setDataAsync(data: Partial<IData>) {
@@ -145,9 +152,11 @@ export class MiniComponent<IData = IComponentData<any>> {
     }
 
     const createdFn = _that?.lifetimes?.created || _that?.created;
+    const beforeObj = MiniComponent?.before?.();
     _that.lifetimes.created = function created(...opts: any) {
       try {
         this.viewStatus = "load";
+        beforeObj?.created?.apply?.(this, opts);
         this?.beforeCreated?.(...opts);
       } catch {}
       return createdFn?.apply?.(this, opts);
@@ -159,6 +168,7 @@ export class MiniComponent<IData = IComponentData<any>> {
         if (this.viewStatus !== "ready") {
           this.viewStatus = "ready";
         }
+        beforeObj?.ready?.apply?.(this, opts);
       } catch {}
       return readyFn?.apply?.(this, opts);
     };

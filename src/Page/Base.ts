@@ -14,10 +14,6 @@ export default class Base<IData = any> {
 
   data = {};
 
-  constructor() {
-    return Base.serialize(this);
-  }
-
   setDataAsync(data: Partial<IData>) {
     return new Promise((resolve) => {
       (this as any).setData(data, () => {
@@ -27,6 +23,14 @@ export default class Base<IData = any> {
   }
 
   private delProperties = ["constructor"];
+
+  static before(): {
+    onLoad: () => void;
+    onShow: () => void;
+    onReady: () => void;
+  } {
+    return Object.create(null);
+  }
 
   static serialize<T extends Base<any>>(obj: T): any {
     const that: any = clone({ proto: true })(obj);
@@ -39,10 +43,13 @@ export default class Base<IData = any> {
       delete that[item];
     });
 
+    const beforeObj = Base?.before?.();
+
     const createdFn = that?.onLoad;
     that.onLoad = function created(...opts: any) {
       try {
         this.viewStatus = "load";
+        beforeObj?.onLoad?.apply(this, opts);
         this?.beforeOnLoad?.(...opts);
       } catch {}
       return createdFn?.apply?.(this, opts);
@@ -54,8 +61,17 @@ export default class Base<IData = any> {
         if (this.viewStatus !== "ready") {
           this.viewStatus = "ready";
         }
+        beforeObj?.onReady?.apply(this, opts);
       } catch {}
       return readyFn?.apply?.(this, opts);
+    };
+
+    const showFn = that?.onShow;
+    that.onShow = function show(...opts: any) {
+      try {
+        beforeObj?.onShow?.apply(this, opts);
+      } catch {}
+      return showFn?.apply?.(this, opts);
     };
 
     return that;
