@@ -42,10 +42,10 @@ export class MiniComponent<IData = IComponentData<any>> {
 
   viewStatus: "load" | "ready" = "load";
 
-  static before(): {
+  static before(): Partial<{
     created: () => void;
     ready: () => void;
-  } {
+  }> {
     return Object.create(null);
   }
 

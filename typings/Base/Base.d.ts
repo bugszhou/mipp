@@ -1,11 +1,11 @@
 type DataOption = Record<string, any>;
 
 export declare class Base<IData extends DataOption> {
-  static before(): {
+  static before(): Partial<{
     onLoad: () => void;
     onShow: () => void;
     onReady: () => void;
-  };
+  }>;
   /** 页面的文件路径 */
   is: string;
 
@@ -178,10 +178,10 @@ export declare class MiniComponent<
   IData extends DataOption = DataOption,
   IProps = DataOption
 > {
-  static before(): {
+  static before(): Partial<{
     created: () => void;
     ready: () => void;
-  };
+  }>;
   /** 页面的文件路径 */
   is: string;
 

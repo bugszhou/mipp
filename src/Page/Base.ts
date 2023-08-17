@@ -24,11 +24,11 @@ export default class Base<IData = any> {
 
   private delProperties = ["constructor"];
 
-  static before(): {
+  static before(): Partial<{
     onLoad: () => void;
     onShow: () => void;
     onReady: () => void;
-  } {
+  }> {
     return Object.create(null);
   }
 
