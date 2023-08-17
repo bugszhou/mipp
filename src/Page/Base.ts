@@ -78,6 +78,6 @@ export default class Base<IData = any> {
   }
 
   static render<IData = any>(ins: Base<IData>) {
-    Page(ins);
+    Page(Base.serialize(ins));
   }
 }

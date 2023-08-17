@@ -92,7 +92,7 @@ var Base = /** @class */ (function () {
         return that;
     };
     Base.render = function (ins) {
-        Page(ins);
+        Page(Base.serialize(ins));
     };
     return Base;
 }());
