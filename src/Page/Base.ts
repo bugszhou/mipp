@@ -47,11 +47,27 @@ export default class Base<IData = any> {
 
     const createdFn = that?.onLoad;
     that.onLoad = function created(...opts: any) {
+      this.viewStatus = "load";
+      let isError = false;
+
       try {
-        this.viewStatus = "load";
         beforeObj?.onLoad?.apply(this, opts);
+      } catch (e) {
+        console.error(e);
+        isError = true;
+      }
+
+      if (isError) {
+        return;
+      }
+
+      isError = false;
+
+      try {
         this?.beforeOnLoad?.(...opts);
-      } catch {}
+      } catch (e) {
+        console.error(e);
+      }
       return createdFn?.apply?.(this, opts);
     };
 
@@ -61,16 +77,43 @@ export default class Base<IData = any> {
         if (this.viewStatus !== "ready") {
           this.viewStatus = "ready";
         }
-        beforeObj?.onReady?.apply(this, opts);
       } catch {}
+
+      let isError = false;
+
+      try {
+        beforeObj?.onReady?.apply(this, opts);
+      } catch (e) {
+        console.error(e);
+        isError = true;
+      }
+
+      if (isError) {
+        return;
+      }
+
+      isError = false;
+
       return readyFn?.apply?.(this, opts);
     };
 
     const showFn = that?.onShow;
     that.onShow = function show(...opts: any) {
+      let isError = false;
+
       try {
         beforeObj?.onShow?.apply(this, opts);
-      } catch {}
+      } catch (e) {
+        console.error(e);
+        isError = true;
+      }
+
+      if (isError) {
+        return;
+      }
+
+      isError = false;
+
       return showFn?.apply?.(this, opts);
     };
 

@@ -52,12 +52,25 @@ var Base = /** @class */ (function () {
             for (var _i = 0; _i < arguments.length; _i++) {
                 opts[_i] = arguments[_i];
             }
+            this.viewStatus = "load";
+            var isError = false;
             try {
-                this.viewStatus = "load";
                 (_a = beforeObj === null || beforeObj === void 0 ? void 0 : beforeObj.onLoad) === null || _a === void 0 ? void 0 : _a.apply(this, opts);
+            }
+            catch (e) {
+                console.error(e);
+                isError = true;
+            }
+            if (isError) {
+                return;
+            }
+            isError = false;
+            try {
                 (_b = this === null || this === void 0 ? void 0 : this.beforeOnLoad) === null || _b === void 0 ? void 0 : _b.call.apply(_b, __spreadArrays([this], opts));
             }
-            catch (_d) { }
+            catch (e) {
+                console.error(e);
+            }
             return (_c = createdFn === null || createdFn === void 0 ? void 0 : createdFn.apply) === null || _c === void 0 ? void 0 : _c.call(createdFn, this, opts);
         };
         var readyFn = that === null || that === void 0 ? void 0 : that.onReady;
@@ -71,9 +84,20 @@ var Base = /** @class */ (function () {
                 if (this.viewStatus !== "ready") {
                     this.viewStatus = "ready";
                 }
-                (_a = beforeObj === null || beforeObj === void 0 ? void 0 : beforeObj.onReady) === null || _a === void 0 ? void 0 : _a.apply(this, opts);
             }
             catch (_c) { }
+            var isError = false;
+            try {
+                (_a = beforeObj === null || beforeObj === void 0 ? void 0 : beforeObj.onReady) === null || _a === void 0 ? void 0 : _a.apply(this, opts);
+            }
+            catch (e) {
+                console.error(e);
+                isError = true;
+            }
+            if (isError) {
+                return;
+            }
+            isError = false;
             return (_b = readyFn === null || readyFn === void 0 ? void 0 : readyFn.apply) === null || _b === void 0 ? void 0 : _b.call(readyFn, this, opts);
         };
         var showFn = that === null || that === void 0 ? void 0 : that.onShow;
@@ -83,10 +107,18 @@ var Base = /** @class */ (function () {
             for (var _i = 0; _i < arguments.length; _i++) {
                 opts[_i] = arguments[_i];
             }
+            var isError = false;
             try {
                 (_a = beforeObj === null || beforeObj === void 0 ? void 0 : beforeObj.onShow) === null || _a === void 0 ? void 0 : _a.apply(this, opts);
             }
-            catch (_c) { }
+            catch (e) {
+                console.error(e);
+                isError = true;
+            }
+            if (isError) {
+                return;
+            }
+            isError = false;
             return (_b = showFn === null || showFn === void 0 ? void 0 : showFn.apply) === null || _b === void 0 ? void 0 : _b.call(showFn, this, opts);
         };
         return that;
