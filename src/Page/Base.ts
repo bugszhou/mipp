@@ -80,9 +80,10 @@ export default class Base<IData = any> {
       } catch {}
 
       let isError = false;
+      let beforeResult: any = null;
 
       try {
-        beforeObj?.onReady?.apply(this, opts);
+        beforeResult = beforeObj?.onReady?.apply(this, opts);
       } catch (e) {
         console.error(e);
         isError = true;
@@ -94,7 +95,19 @@ export default class Base<IData = any> {
 
       isError = false;
 
-      return readyFn?.apply?.(this, opts);
+      let readyResult = readyFn?.apply?.(this, opts);
+
+      if (
+        typeof beforeResult === "object" &&
+        typeof beforeResult?.then === "function"
+      ) {
+        (async () => {
+          await beforeResult;
+          return that?.onReadyAsync?.apply?.(this, opts);
+        })();
+      }
+
+      return readyResult;
     };
 
     const showFn = that?.onShow;
