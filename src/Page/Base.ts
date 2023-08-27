@@ -105,6 +105,8 @@ export default class Base<IData = any> {
           await beforeResult;
           return that?.onReadyAsync?.apply?.(this, opts);
         })();
+      } else {
+        that?.onReadyAsync?.apply?.(this, opts);
       }
 
       return readyResult;
