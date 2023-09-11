@@ -85,7 +85,7 @@ export declare class ComponentBase<
    *
    * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
    */
-  readyAsync(): any;
+  readyAsync(): void;
 
   /**
    * 在组件在视图层布局完成后执行，用于异步执行
