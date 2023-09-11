@@ -95,6 +95,12 @@ export default class Base<IData = any> {
 
       isError = false;
 
+      try {
+        this?.beforeOnReady?.(...opts);
+      } catch (e) {
+        console.error(e);
+      }
+
       let readyResult = readyFn?.apply?.(this, opts);
 
       if (
@@ -103,10 +109,13 @@ export default class Base<IData = any> {
       ) {
         (async () => {
           await beforeResult;
-          return that?.onReadyAsync?.apply?.(this, opts);
+          await that?.onReadyAsync?.apply?.(this, opts);
+          await that?.renderView?.apply?.(this, opts);
+          return readyResult;
         })();
       } else {
         that?.onReadyAsync?.apply?.(this, opts);
+        that?.renderView?.apply?.(this, opts);
       }
 
       return readyResult;
