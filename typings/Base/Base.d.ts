@@ -412,6 +412,20 @@ export declare class MiniComponent<
    */
   ready(): void;
 
+  /**
+   * 在组件在视图层布局完成后执行，用于异步执行
+   *
+   * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  readyAsync(): any;
+
+  /**
+   * 在组件在视图层布局完成后执行，用于异步执行
+   *
+   * 最低基础库版本：[`1.6.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+   */
+  renderView(): void;
+
   // 接口
   /**
    * 在组件实例被移动到节点树另一个位置时执行

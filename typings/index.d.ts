@@ -69,6 +69,17 @@ export class PageBase<IData extends Record<string, any>> extends Base<IData> {
    */
   onReadyAsync(): any;
 
+  /**
+   * 生命周期回调—监听页面初次渲染完成
+   *
+   * 页面初次渲染完成时触发。一个页面只会调用一次，代表页面已经准备妥当，可以和视图层进行交互。
+   *
+   * 【用于全局的异步 before执行后再执行】
+   *
+   * 注意：对界面内容进行设置的 API 如`wx.setNavigationBarTitle`，请在`onReady`之后进行。
+   */
+  renderView(): void;
+
   /** 生命周期回调—监听页面隐藏
    *
    * 页面隐藏/切入后台时触发。 如 `navigateTo` 或底部 `tab` 切换到其他页面，小程序切入后台等。
